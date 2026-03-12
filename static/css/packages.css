@@ -1,0 +1,101 @@
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f4;
+}
+
+.navbar{
+background:black;
+color:white;
+padding:15px;
+text-align:center;
+font-size:22px;
+}
+
+.banner{
+background:linear-gradient(to right,#ff7b00,#ff3c00);
+color:white;
+text-align:center;
+padding:40px 20px;
+}
+
+.container{
+width:90%;
+margin:30px auto;
+}
+
+.filters{
+text-align:center;
+margin-bottom:30px;
+}
+
+.filters button{
+padding:8px 15px;
+margin:5px;
+border:none;
+background:#ddd;
+border-radius:20px;
+cursor:pointer;
+}
+
+.filters .active{
+background:orange;
+color:white;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+}
+
+.fort-list{
+padding-left:20px;
+}
+
+.fort-list li{
+margin-bottom:8px;
+font-size:16px;
+}
+
+.seat-normal{
+color:green;
+}
+
+.seat-warning{
+color:red;
+font-weight:bold;
+}
+
+.real{
+text-decoration:line-through;
+color:red;
+margin-right:10px;
+}
+
+.offer{
+font-size:22px;
+color:green;
+font-weight:bold;
+}
+
+.book-btn{
+margin-top:12px;
+padding:10px 18px;
+background:orange;
+border:none;
+color:white;
+border-radius:6px;
+cursor:pointer;
+}
+
+.book-btn:hover{
+background:darkorange;
+}

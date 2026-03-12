@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link rel="stylesheet" href="{% static 'css/fort.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Travel-Fort</div>
+    <div class="menu">
+        <a href="/home/">Home</a>
+        <a href="/fort-us/" class="active">Fort</a>
+        <a href="/best-packages/">Best Offer's</a>
+        <a href="#">Book's</a>
+        <a href="#">Contact</a>
+    </div>
+</nav>
+
+<div class="fort-container">
+    <h1>भारताचे प्रसिद्ध किल्ले</h1>
+
+    <div class="fort-card">
+        <img src="{% static 'img/rajgad.png' %}" alt="">
+        <h2>राजगड किल्ला – महाराष्ट्र</h2>
+        <p>राजगड किल्ला हा छत्रपती शिवाजी महाराजांचा जुना राजधानी किल्ला आहे.</p>
+    </div>
+
+    <div class="fort-card">
+        <img src="{% static 'img/shivneri.jpg' %}" alt="">
+        <h2>शिवनेरी किल्ला – महाराष्ट्र</h2>
+        <p>शिवनेरी किल्ला हा शिवाजी महाराजांचा जन्मस्थान आहे.</p>
+    </div>
+
+    <div class="fort-card">
+        <img src="{% static 'img/sindhudurgha.jpg' %}" alt="">
+        <h2>सिंधुदुर्ग किल्ला – महाराष्ट्र</h2>
+        <p>सिंधुदुर्ग हा समुद्रातील किल्ला आहे.</p>
+    </div>
+
+    <a href="/home/" class="back-link">← Back to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% load static %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Best Packages</title>
+
+<link rel="stylesheet" href="{% static 'css/packages.css' %}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="logo">Travel-Fort</div>
+</nav>
+
+<div class="banner">
+<h1>Explore Maharashtra Fort Rides</h1>
+<p>Share Ride • Save Money • Travel Smart</p>
+</div>
+
+<div class="container">
+
+<div class="filters">
+<button class="active">All</button>
+<button>Rajgad</button>
+<button>Shivneri</button>
+<button>Raigad</button>
+</div>
+
+<div class="grid">
+
+{% for p in packagesData %}
+
+<div class="card">
+
+<h3>{{ p.fort_name }}</h3>
+
+<p><b>Driver:</b> {{ p.driver_name }}</p>
+<p><b>Contact:</b> {{ p.contact }}</p>
+<p><b>Pickup:</b> {{ p.pickup_place }}</p>
+<p><b>Date:</b> {{ p.pickup_date }}</p>
+
+<p>
+<span class="real">₹{{ p.price }}</span>
+<span class="offer">₹{{ p.offer_price }}</span>
+</p>
+
+<button class="book-btn">Book Now</button>
+
+</div>
+
+{% endfor %}
+
+
+
+</div>
+</div>
+
+</body>
+</html>

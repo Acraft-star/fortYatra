@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trip</title>
+    <link rel="stylesheet" href="{% static 'css/trip.css' %}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">Travel-Fort</div>
+    <div class="menu">
+        <a href="/home/">Home</a>
+        <a href="/fort-us/">Fort</a>
+        <a href="#" class="active">Book Your Trip</a>
+    </div>
+</nav>
+
+<div class="booking-container">
+    <h1>Book Your Fort Trip</h1>
+
+    <form class="booking-form" method="post">
+     {% csrf_token %}
+
+    <input type="text" name="name" placeholder="Your Name" required>
+
+    <input type="text" name="mobile" placeholder="Mobile Number" required>
+
+    <select name="fort_name" required>
+        <option value="">Select Fort</option>
+        <option>Rajgad</option>
+        <option>Shivneri</option>
+        <option>Sindhudurg</option>
+    </select>
+
+    <input type="date" name="trip_date" required>
+
+    <input type="number" name="persons" placeholder="Number of Persons" required>
+
+    <button type="submit">Book Now</button>
+</form>
