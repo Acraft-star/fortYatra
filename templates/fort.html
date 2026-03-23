@@ -2,23 +2,41 @@
 <html lang="mr">
 <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  
+     <title>All forts — FortYatra</title>
     <link rel="stylesheet" href="{% static 'css/fort.css' %}">
 </head>
 <body>
 
-<nav class="navbar">
-    <div class="logo">Travel-Fort</div>
-    <div class="menu">
-        <a href="/home/">Home</a>
-        <a href="/fort-us/" class="active">Fort</a>
-        <a href="/best-packages/">Best Offer's</a>
-        <a href="#">Book's</a>
-        <a href="#">Contact</a>
+<!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">Fort<span>Yatra</span></a>
+ 
+      <ul class="nav-links">
+        <li class="active"><a href="/home/">Home</a></li>
+        <li><a href="/fort-us/">Explore Forts</a></li>
+        <li><a href="/best-packages/">Browse Packages</a></li>
+        <li><a href="#">Book's</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+ 
+      <div class="nav-actions">
+        <button class="btn-ghost">Login</button>
+        <button class="btn-primary"><a href="/register/">Register Free</a></button>
+      </div>
+ 
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-</nav>
+  </nav>
+ 
 
 <div class="fort-container">
     <h1>भारताचे प्रसिद्ध किल्ले</h1>

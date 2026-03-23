@@ -2,63 +2,280 @@
 <html lang="en">
 <head>
 {% load static %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Best Packages</title>
-
-<link rel="stylesheet" href="{% static 'css/packages.css' %}">
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  
+  <title>All Trips — FortYatra</title>
+<link rel="stylesheet" href="../static/css/packages.css">
 
 </head>
 
 <body>
+      <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">Fort<span>Yatra</span></a>
+ 
+      <ul class="nav-links">
+        <li class="active"><a href="/home/">Home</a></li>
+        <li><a href="/fort-us/">Explore Forts</a></li>
+        <li><a href="/best-packages/">Browse Packages</a></li>
+        <li><a href="#">Book's</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+ 
+      <div class="nav-actions">
+        <button class="btn-ghost">Login</button>
+        <button class="btn-primary"><a href="/register/">Register Free</a></button>
+      </div>
+ 
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+ 
+  <!-- ==================== PAGE BANNER ==================== -->
+  <section class="page-banner">
+    <div class="container">
+      <div class="banner-inner">
+        <div>
+          <div class="banner-crumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span style="color:rgba(255,255,255,0.65)">All Trips</span>
+          </div>
+          <h1 class="banner-title">Explore All <em>Fort Trips</em></h1>
+          <p class="banner-subtitle">
+            Browse every available trip across Maharashtra's forts.
+            Book a seat, join a group, and trek with confidence.
+          </p>
+        </div>
+ 
+        <div class="banner-stats">
+          <div class="b-stat">
+            <div class="b-stat-num">{{ packagesData|length }}</div>
+            <div class="b-stat-label">Active Trips</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">350+</div>
+            <div class="b-stat-label">Forts</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">8,400+</div>
+            <div class="b-stat-label">Travellers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ==================== FILTER BAR ==================== -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="filter-chips" id="filterChips">
+        <button class="chip active" data-filter="all">All Trips</button>
+        <!-- Unique fort names from DB — you can generate these dynamically in Django too -->
+        {% for fort in fort_names %}
+        <button class="chip" data-filter="{{ fort }}">{{ fort }}</button>
+        {% endfor %}
+      </div>
+ 
+      <div class="filter-right">
+        <span class="result-count">
+          Showing <strong id="visibleCount">{{ packagesData|length }}</strong> trips
+        </span>
+        <span class="sort-label">Sort by</span>
+        <select class="sort-select" id="sortSelect">
+          <option value="default">Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="date-asc">Date: Soonest First</option>
+        </select>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ==================== TRIPS GRID ==================== -->
+  <section class="trips-section">
+    <div class="container">
+      <div class="trips-grid" id="tripsGrid">
+ 
+        {% for p in packagesData %}
+        {# seats_left = seats - book_seats; compute in view or use a model property #}
+ 
+        <div class="trip-card"
+             data-fort="{{ p.fort_name }}"
+             data-price="{{ p.offer_price }}"
+             data-date="{{ p.pickup_date }}"
+             data-index="{{ forloop.counter }}">
+ 
+          <!-- Banner -->
+          <div class="card-banner banner-{{ forloop.counter|divisibleby:1|yesno:'1,1' }}"
+               id="banner-{{ forloop.counter }}">
+            <span class="card-fort-bg">🏰</span>
+ 
+            {% if p.offer_price < p.price %}
+            <span class="discount-badge">
+              {{ p.price|add:"-0"|floatformat:0 }} → Save ₹{{ p.price|add:p.offer_price|floatformat:0 }}
+            </span>
+            {% endif %}
+ 
+            <span class="seats-badge">
+              <span class="seats-dot {% if p.seats <= 3 %}low{% endif %}"></span>
+              {{ p.seats }} seat{{ p.seats|pluralize }} available
+            </span>
+          </div>
+ 
+          <!-- Body -->
+          <div class="card-body">
+            <div class="card-fort-name">{{ p.fort_name }}</div>
+            <div class="card-pickup-place">📍 {{ p.pickup_place }}</div>
+ 
+            <div class="card-info">
+              <div class="info-row">
+                <span class="info-icon">👤</span>
+                <span>Driver: <span class="info-val">{{ p.driver_name }}</span></span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">📅</span>
+                <span>Date: <span class="info-val">{{ p.pickup_date }}</span></span>
+              </div>
+              <div class="info-row">
+                <span class="info-icon">📞</span>
+                <span>Contact: <span class="info-val">{{ p.contact }}</span></span>
+              </div>
+            </div>
+ 
+            <div class="card-divider"></div>
+ 
+            <div class="card-footer">
+              <div class="price-block">
+                <span class="price-offer">₹{{ p.offer_price }}</span>
+                {% if p.offer_price < p.price %}
+                <span class="price-original">₹{{ p.price }}</span>
+                {% endif %}
+                <div class="price-per">per person</div>
+              </div>
+              <button class="book-btn">Book Now</button>
+            </div>
+          </div>
+ 
+        </div><!-- /.trip-card -->
+        {% empty %}
+        <div class="empty-state">
+          <div class="empty-icon">🏔️</div>
+          <h3>No trips available yet</h3>
+          <p>Check back soon — new fort trips are added regularly.</p>
+        </div>
+        {% endfor %}
+ 
+      </div><!-- /#tripsGrid -->
+    </div>
+  </section>
+ 
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">Fort<span>Yatra</span></div>
+          <p>Maharashtra's first community-driven fort travel platform. Connect, explore, and conquer together.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#">All Forts</a></li>
+            <li><a href="#">Upcoming Trips</a></li>
+            <li><a href="#">Trip Planners</a></li>
+            <li><a href="#">Fort Map</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Account</h5>
+          <ul>
+            <li><a href="#">Register</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">List a Trip</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 FortYatra. Made with ❤️ for Maharashtra fort lovers.</span>
+      </div>
+    </div>
+  </footer>
 
-<nav class="navbar">
-<div class="logo">Travel-Fort</div>
-</nav>
-
-<div class="banner">
-<h1>Explore Maharashtra Fort Rides</h1>
-<p>Share Ride • Save Money • Travel Smart</p>
-</div>
-
-<div class="container">
-
-<div class="filters">
-<button class="active">All</button>
-<button>Rajgad</button>
-<button>Shivneri</button>
-<button>Raigad</button>
-</div>
-
-<div class="grid">
-
-{% for p in packagesData %}
-
-<div class="card">
-
-<h3>{{ p.fort_name }}</h3>
-
-<p><b>Driver:</b> {{ p.driver_name }}</p>
-<p><b>Contact:</b> {{ p.contact }}</p>
-<p><b>Pickup:</b> {{ p.pickup_place }}</p>
-<p><b>Date:</b> {{ p.pickup_date }}</p>
-
-<p>
-<span class="real">₹{{ p.price }}</span>
-<span class="offer">₹{{ p.offer_price }}</span>
-</p>
-
-<button class="book-btn">Book Now</button>
-
-</div>
-
-{% endfor %}
-
-
-
-</div>
-</div>
-
+  <script>
+     // --- Banner color cycling (assigns banner-1 to banner-6 per card) ---
+    document.querySelectorAll('.card-banner').forEach((banner, i) => {
+      banner.classList.add('banner-' + ((i % 6) + 1));
+      // remove placeholder class added by Django template
+      banner.classList.remove('banner-1'); // will be re-added below correctly
+      banner.classList.add('banner-' + ((i % 6) + 1));
+    });
+ 
+    // Clean up: just reassign directly
+    document.querySelectorAll('.card-banner').forEach((banner, i) => {
+      for (let n = 1; n <= 6; n++) banner.classList.remove('banner-' + n);
+      banner.classList.add('banner-' + ((i % 6) + 1));
+    });
+ 
+    // --- Fort chip filter ---
+    const chips     = document.querySelectorAll('.chip');
+    const cards     = document.querySelectorAll('.trip-card');
+    const countEl   = document.getElementById('visibleCount');
+ 
+    function updateCount() {
+      const visible = [...cards].filter(c => c.style.display !== 'none').length;
+      countEl.textContent = visible;
+    }
+ 
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+ 
+        const filter = chip.dataset.filter;
+        cards.forEach(card => {
+          const match = filter === 'all' ||
+            card.dataset.fort.toLowerCase() === filter.toLowerCase();
+          card.style.display = match ? '' : 'none';
+        });
+        updateCount();
+      });
+    });
+ 
+    // --- Sort ---
+    document.getElementById('sortSelect').addEventListener('change', function () {
+      const grid  = document.getElementById('tripsGrid');
+      const items = [...grid.querySelectorAll('.trip-card')];
+ 
+      items.sort((a, b) => {
+        if (this.value === 'price-asc')  return +a.dataset.price - +b.dataset.price;
+        if (this.value === 'price-desc') return +b.dataset.price - +a.dataset.price;
+        if (this.value === 'date-asc')   return new Date(a.dataset.date) - new Date(b.dataset.date);
+        return +a.dataset.index - +b.dataset.index;
+      });
+ 
+      items.forEach(item => grid.appendChild(item));
+    });
+ 
+    // initial count
+    updateCount();
+  </script>
 </body>
 </html>

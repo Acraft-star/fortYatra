@@ -1,12 +1,489 @@
-{% include "header.html" %}
-        <section class="h-txt">
-            <span>Enjoy</span> 
-            <h1> A Historical Maharashtra  Fort Agency </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  
+  <title>FortYatra — Explore Maharashtra Forts</title>
+  <link rel="stylesheet" href="/static/css/landing.css">
+</head>
+<body>
+<!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="#" class="logo">Fort<span>Yatra</span></a>
+ 
+      <ul class="nav-links">
+        <li class="active"><a href="/home/">Home</a></li>
+        <li><a href="/fort-us/">Explore Forts</a></li>
+        <li><a href="/best-packages/">Browse Packages</a></li>
+        <li><a href="#">Book's</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+ 
+      <div class="nav-actions">
+        <button class="btn-ghost">Login</button>
+        <button class="btn-primary"><a href="/register/">Register Free</a></button>
+      </div>
+ 
+      <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+ 
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-tag">Maharashtra Fort Travel Community</span>
+ 
+      <h1>Conquer Every <em>Fort</em><br>With Fellow Travellers</h1>
+ 
+      <p>Discover organised trips to 350+ Maharashtra forts. Join a group, go solo, or share your own trek — FortYatra connects first-timers with experienced fort travellers.</p>
+ 
+      <div class="hero-actions">
+        <button class="hero-btn-primary"><a href="/best-packages/">Browse All Trips</a></button>
+        <button class="hero-btn-outline">List Your Trip &rarr;</button>
+      </div>
+ 
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">350+</div>
+          <div class="stat-label">Forts Listed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1,200+</div>
+          <div class="stat-label">Trips Organised</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">8,400+</div>
+          <div class="stat-label">Travellers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">36</div>
+          <div class="stat-label">Districts Covered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ==================== SEARCH ==================== -->
+  <div class="search-section">
+    <div class="search-wrap">
+      <h3>Find Your Next Fort</h3>
+      <div class="search-row">
 
-            <br>
-            <a href="/book-trip/">Book your Trip </a>
-        </section>
+        <div class="search-field">
+          <label for="region">Region</label>
+          <select id="region" onchange = "updateForts()" >
+            <option value="">All Regions</option>
+            <option value="sahyadri">Sahyadri Range</option>
+            <option value="konkan">Konkan Coast</option>
+            <option value="marathwada">Marathwada</option>
+            <option value="vidarbha">Vidarbha</option>
+            <option value="nashik">Nashik &amp; Trimbak</option>
+          </select>
+        </div>
 
-    </header>
+        <div class="search-field">
+         <label for="fort">Fort</label>
+         <select id="fort">
+           <option value="">Select a Fort</option>
+         </select>
+        </div>
+        <div class="search-field">
+          <label for="travel-month">When</label>
+          <input type="month" id="travel-month" />
+        </div>
+        <button class="search-btn">Search Trips</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ==================== UPCOMING TRIPS ==================== -->
+  <section class="trips-section">
+    <div class="container">
+      <span class="section-tag">Available Now</span>
+      <div class="section-header">
+        <h2>Upcoming Trips</h2>
+        <a href="/best-packages/">See all trips &rarr;</a>
+      </div>
+ 
+      <div class="trips-grid">
+ 
+        <!-- Card 1 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/rajgad.jpg" class="card-fort-bg" alt="">
+             <span class="card-diff diff-mod">Moderate</span>
+            <span class="card-badge"><span class="badge-dot"></span> Group · 8 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Rajgad Full Trek</h3>
+            <p class="card-fort-name">📍 Rajgad Fort, Pune District</p>
+            <div class="card-meta">
+              <span>📅 Apr 12–13</span>
+              <span>🕐 2 days</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">VS</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Vikram S.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹1,200</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 2 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/sinhagad.jpg" class="card-fort-bg" alt="">
+            <span class="card-diff diff-easy">Easy</span>
+            <span class="card-badge"><span class="badge-dot"></span> Solo-friendly · 3 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Sinhagad Sunrise Trek</h3>
+            <p class="card-fort-name">📍 Sinhagad Fort, Pune</p>
+            <div class="card-meta">
+              <span>📅 Mar 30</span>
+              <span>🕐 1 day</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">AM</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Aditi M.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹600</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 3 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/sindhudurgha.jpg" class="card-fort-bg" alt="">
+            <span class="card-diff diff-hard">Hard</span>
+            <span class="card-badge"><span class="badge-dot"></span> Expert · 5 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Sindhudurgha Night Trek</h3>
+            <p class="card-fort-name">📍 Malvan District</p>
+            <div class="card-meta">
+              <span>📅 Apr 5–7</span>
+              <span>🕐 3 days</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">RD</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Rahul D.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹2,800</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 4 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/raigad.jpg" class="card-fort-bg" alt="">
+            <span class="card-diff diff-hard">Hard</span>
+            <span class="card-badge"><span class="badge-dot"></span> Group · 12 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Raigad Heritage Walk</h3>
+            <p class="card-fort-name">📍 Raigad Fort, Raigad District</p>
+            <div class="card-meta">
+              <span>📅 Apr 20</span>
+              <span>🕐 1 day</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">SP</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Shreya P.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹750</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 5 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/torna.jpg" class="card-fort-bg" alt="">
+            <span class="card-diff diff-hard">Hard</span>
+            <span class="card-badge"><span class="badge-dot"></span> Solo-friendly · 2 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Torna Monsoon Trek</h3>
+            <p class="card-fort-name">📍 Torna Fort, Pune District</p>
+            <div class="card-meta">
+              <span>📅 Apr 26–27</span>
+              <span>🕐 2 days</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">KJ</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Karan J.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹1,500</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <!-- Card 6 -->
+        <div class="trip-card">
+          <div class="card-img">
+            <img src="../static/img/shivneri.jpg" class="card-fort-bg" alt="">
+            <span class="card-diff diff-mod">Moderate</span>
+            <span class="card-badge"><span class="badge-dot"></span> Group · 6 joining</span>
+          </div>
+          <div class="card-body">
+            <h3>Shivneri Fort</h3>
+            <p class="card-fort-name">📍 Kusur District</p>
+            <div class="card-meta">
+              <span>📅 May 3–4</span>
+              <span>🕐 2 days</span>
+            </div>
+            <div class="card-footer">
+              <div class="organizer">
+                <div class="avatar">NP</div>
+                <div class="organizer-info">
+                  <small>Organised by</small>
+                  <span>Nikhil P.</span>
+                </div>
+              </div>
+              <div class="price">
+                <div class="price-amount">₹2,200</div>
+                <span class="price-label">per person</span>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ==================== HOW IT WORKS ==================== -->
+  <section class="how-section">
+    <div class="container">
+      <span class="section-tag">How it works</span>
+      <div class="section-header">
+        <h2>Plan Your Trek in Minutes</h2>
+      </div>
+ 
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h4>Register &amp; Set Preferences</h4>
+            <p>Create your free account and tell us your fitness level, preferred forts, and travel style so we show you the right trips.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h4>Browse &amp; Book a Trip</h4>
+            <p>Find trips matching your schedule. See who's going, read organiser reviews, and book your spot instantly.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h4>Trek Together</h4>
+            <p>Meet your group, follow the trip plan, and safely explore Maharashtra's magnificent forts with experienced locals.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ==================== LIST YOUR TRIP CTA ==================== -->
+  <div class="cta-section" style="padding-top: 60px;">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <h2>Planning a Fort Trip?<br>List It Here.</h2>
+        <p>Share your trip on FortYatra and connect with fellow trekking enthusiasts. Whether going solo or with a group, find companions for your next fort conquest.</p>
+      </div>
+      <div class="cta-right">
+        <div class="cta-pill"><span class="cta-pill-dot"></span> Free to list your trip</div>
+        <div class="cta-pill"><span class="cta-pill-dot"></span> Connect with verified travellers</div>
+        <div class="cta-pill"><span class="cta-pill-dot"></span> Manage joiners from your dashboard</div>
+        <button class="cta-btn">List Your Trip &rarr;</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">Fort<span>Yatra</span></div>
+          <p>Maharashtra's first community-driven fort travel platform. Connect, explore, and conquer together.</p>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#">All Forts</a></li>
+            <li><a href="#">Upcoming Trips</a></li>
+            <li><a href="#">Trip Planners</a></li>
+            <li><a href="#">Fort Map</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Account</h5>
+          <ul>
+            <li><a href="#">Register</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">List a Trip</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+ 
+      <div class="footer-bottom">
+        <span>&copy; 2025 FortYatra. Made with ❤️ for Maharashtra fort lovers.</span>
+      </div>
+    </div>
+  </footer>
+
+
+<!-- ==================== SCRIPTS ==================== -->
+  <script>
+
+     const fortsByRegion = {
+    "": [
+      // all forts combined (shown when no region selected)
+      "Rajgad", "Sinhagad", "Raigad", "Torna", "Harishchandragad",
+      "Pratapgad", "Lohagad", "Purandar", "Shivneri", "Vasota",
+      "Vijaydurg", "Kalavantin", "Panhala", "Sindhudurg", "Murud-Janjira",
+      "Daulatabad", "Lonar", "Naldurg", "Paranda", "Gawilgad"
+    ],
+    sahyadri: [
+      "Rajgad", "Sinhagad", "Torna", "Harishchandragad",
+      "Lohagad", "Purandar", "Kalavantin", "Visapur",
+      "Tikona", "Tunga", "Rohida", "Rajmachi"
+    ],
+    konkan: [
+      "Raigad", "Pratapgad", "Vasota", "Vijaydurg",
+      "Sindhudurg", "Murud-Janjira", "Suvarnadurg",
+      "Kolaba", "Jaigad", "Ratnadurg"
+    ],
+    marathwada: [
+      "Daulatabad", "Lonar", "Naldurg", "Paranda",
+      "Osmanabad", "Ausa", "Udgir", "Dharur"
+    ],
+    vidarbha: [
+      "Gawilgad", "Narnala", "Devgad", "Balapur",
+      "Mahur", "Ramtek", "Amner", "Koradi"
+    ],
+    nashik: [
+      "Shivneri", "Anjaneri", "Brahmagiri", "Trimbakeshwar Fort",
+      "Mulher", "Salher", "Hargad", "Achala"
+    ]
+  };
+ 
+  function updateForts() {
+    const region = document.getElementById("region").value;
+    const fortSelect = document.getElementById("fort");
+ 
+    // clear existing options
+    fortSelect.innerHTML = '<option value="">Select a Fort</option>';
+ 
+    const forts = fortsByRegion[region] || fortsByRegion[""];
+ 
+    forts.forEach(fort => {
+      const opt = document.createElement("option");
+      opt.value = fort.toLowerCase().replace(/\s+/g, "-");
+      opt.textContent = fort;
+      fortSelect.appendChild(opt);
+    });
+  }
+ 
+  // populate all forts on page load
+  updateForts();
+
+  // Fort chip active state
+    document.querySelectorAll('.fort-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.fort-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+ 
+    // Drag-to-scroll on forts row
+    const row = document.getElementById('fortsRow');
+    let isDown = false, startX, scrollLeft;
+    row.addEventListener('mousedown', e => {
+      isDown = true; startX = e.pageX - row.offsetLeft; scrollLeft = row.scrollLeft;
+    });
+    row.addEventListener('mouseleave', () => isDown = false);
+    row.addEventListener('mouseup',    () => isDown = false);
+    row.addEventListener('mousemove',  e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - row.offsetLeft;
+      row.scrollLeft = scrollLeft - (x - startX) * 1.4;
+    });
+ 
+    // Fade-up on scroll for trip cards
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.animation = 'fadeUp 0.45s ease both';
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+ 
+    document.querySelectorAll('.trip-card').forEach(card => observer.observe(card));
+  </script>
 </body>
 </html>

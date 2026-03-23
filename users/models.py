@@ -15,7 +15,6 @@ phone_validator = RegexValidator(
     regex=r'^\d{10}$',
     message="Enter a valid 10 digit mobile number"
 )
-    
 
 class package(models.Model):                             #packages models
     fort_name = models.CharField(max_length=100)
@@ -27,6 +26,5 @@ class package(models.Model):                             #packages models
     price = models.IntegerField()
     offer_price = models.IntegerField()
     
-
     def __str__(self):
         return self.fort_name
