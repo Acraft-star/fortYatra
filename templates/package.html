@@ -10,33 +10,14 @@
   
   <title>All Trips — FortYatra</title>
 <link rel="stylesheet" href="../static/css/packages.css">
+<link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
 
 </head>
 
 <body>
       <!-- ==================== NAVBAR ==================== -->
-  <nav class="navbar">
-    <div class="container">
-      <a href="#" class="logo">Fort<span>Yatra</span></a>
- 
-      <ul class="nav-links">
-        <li class="active"><a href="/home/">Home</a></li>
-        <li><a href="/fort-us/">Explore Forts</a></li>
-        <li><a href="/best-packages/">Browse Packages</a></li>
-        <li><a href="#">Book's</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
- 
-      <div class="nav-actions">
-        <button class="btn-ghost">Login</button>
-        <button class="btn-primary"><a href="/register/">Register Free</a></button>
-      </div>
- 
-      <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+   {% include "navBar.html" %}
  
   <!-- ==================== PAGE BANNER ==================== -->
   <section class="page-banner">
@@ -83,6 +64,13 @@
         <button class="chip" data-filter="{{ fort }}">{{ fort }}</button>
         {% endfor %}
       </div>
+
+      <div style="text-align:right;margin:20px;">
+        <a href="{% url 'create_package' %}" 
+          style="background:#ff6b35;color:white;padding:10px 18px;border-radius:6px;text-decoration:none;">
+          + Create Your Package
+         </a>
+      </div>
  
       <div class="filter-right">
         <span class="result-count">
@@ -114,6 +102,18 @@
              data-index="{{ forloop.counter }}">
  
           <!-- Banner -->
+          {% if p.created_by_user %}
+           <span style="position:absolute;
+            top:10px;
+            left:10px;
+            background:#28a745;
+            color:white;
+            padding:5px 10px;
+            border-radius:5px;
+            font-size:12px;">
+            User Package
+           </span>
+         {% endif %}
           <div class="card-banner banner-{{ forloop.counter|divisibleby:1|yesno:'1,1' }}"
                id="banner-{{ forloop.counter }}">
             <span class="card-fort-bg">🏰</span>
@@ -125,9 +125,9 @@
             {% endif %}
  
             <span class="seats-badge">
-              <span class="seats-dot {% if p.seats <= 3 %}low{% endif %}"></span>
-              {{ p.seats }} seat{{ p.seats|pluralize }} available
-            </span>
+           <span class="seats-dot {% if p.seats_left <= 3 %}low{% endif %}"></span>
+           {{ p.seats_left }} seat{{ p.seats_left|pluralize }} available
+           </span>
           </div>
  
           <!-- Body -->
@@ -160,7 +160,11 @@
                 {% endif %}
                 <div class="price-per">per person</div>
               </div>
-              <button class="book-btn">Book Now</button>
+            {% if p.seats > 0 %}
+              <a href="{% url 'booking' p.id %}" class="book-btn">Book Now</a>
+            {% else %}
+              <button class="book-btn" style="background:red;">Sold Out</button>
+            {% endif %}
             </div>
           </div>
  
@@ -177,47 +181,7 @@
     </div>
   </section>
  
-  <!-- ==================== FOOTER ==================== -->
-  <footer>
-    <div class="container">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="logo">Fort<span>Yatra</span></div>
-          <p>Maharashtra's first community-driven fort travel platform. Connect, explore, and conquer together.</p>
-        </div>
-        <div class="footer-col">
-          <h5>Explore</h5>
-          <ul>
-            <li><a href="#">All Forts</a></li>
-            <li><a href="#">Upcoming Trips</a></li>
-            <li><a href="#">Trip Planners</a></li>
-            <li><a href="#">Fort Map</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Account</h5>
-          <ul>
-            <li><a href="#">Register</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">List a Trip</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Company</h5>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Use</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>&copy; 2025 FortYatra. Made with ❤️ for Maharashtra fort lovers.</span>
-      </div>
-    </div>
-  </footer>
+  
 
   <script>
      // --- Banner color cycling (assigns banner-1 to banner-6 per card) ---

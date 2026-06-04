@@ -7,26 +7,104 @@
 
 <body>
 
-<div class="form-box">
+<div class="page">
+ <div class="form-box">
+    <div class="form-header">
+        <h1>Create Account</h1>
+        <p>Already have an account? <a href="/login/">Login here</a></p>
+    </div>
 
-<h2>Register</h2>
+
+{% if error %}
+<p style="color:red;">{{ error }}</p>
+{% endif %}
 
 <form method="POST">
 {% csrf_token %}
-
-<input type="text" name="full_name" placeholder="Full Name" required>
-
-<input type="text" name="address" placeholder="Address" required>
-
-<input type="email" name="email" placeholder="Email" required>
-
-<input type="text" name="phone" placeholder="Phone Number" required>
-
-<button type="submit">Register</button>
-
+<!-- Full Name -->
+        <div class="form-group" id="grp-name">
+          <label for="full_name">Full Name <span class="req">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">👤</span>
+            <input type="text" id="full_name" name="full_name"
+                   placeholder="e.g. Vikram Shinde"
+                   value="{{ request.POST.full_name|default:'' }}"
+                   autocomplete="name" required/>
+          </div>
+          <div class="field-error" id="err-name">Please enter your full name.</div>
+        </div>
+ 
+        <!-- Address -->
+        <div class="form-group" id="grp-address">
+          <label for="address">Address <span class="req">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon" style="top:18px;transform:none">📍</span>
+            <textarea id="address" name="address"
+                      placeholder="Your city / full address"
+                      rows="2"
+                      required>{{ request.POST.address|default:'' }}</textarea>
+          </div>
+          <div class="field-error" id="err-address">Please enter your address.</div>
+        </div>
+ 
+        <div class="form-divider">Contact Details</div>
+ 
+        <div class="form-row">
+          <!-- Email -->
+          <div class="form-group" id="grp-email">
+            <label for="email">Email <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">✉️</span>
+              <input type="email" id="email" name="email"
+                     placeholder="you@example.com"
+                     value="{{ request.POST.email|default:'' }}"
+                     autocomplete="email" required/>
+            </div>
+            <div class="field-error" id="err-email">Enter a valid email.</div>
+          </div>
+ 
+          <!-- Phone -->
+          <div class="form-group" id="grp-phone">
+            <label for="phone">Phone <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">📞</span>
+              <input type="tel" id="phone" name="phone"
+                     placeholder="10-digit number"
+                     value="{{ request.POST.phone|default:'' }}"
+                     maxlength="10"
+                     autocomplete="tel" required/>
+            </div>
+            <div class="field-error" id="err-phone">Enter a valid 10-digit number.</div>
+          </div>
+        </div>
+ 
+        <div class="form-divider">Set Password</div>
+ 
+        <!-- Password -->
+        <div class="form-group" id="grp-password">
+          <label for="password">Password <span class="req">*</span></label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input type="password" id="password" name="password"
+                   placeholder="Min. 6 characters"
+                   autocomplete="new-password" required/>
+            <button type="button" class="toggle-pw" id="togglePw1"
+                    aria-label="Show password">👁️</button>
+          </div>
+        </div>
+ 
+        <!-- Submit -->
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-text">Create My Account</span>
+          <span class="btn-spinner"></span>
+        </button>
 </form>
-
+        <p class="terms-text">
+          By registering you agree to FortYatra's
+          <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          Your password is stored securely using Django's hashing.
+        </p>
+ </div>
 </div>
-
 </body>
 </html>

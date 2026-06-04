@@ -1,3 +1,223 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --saffron:       #C8501A;
+  --saffron-hover: #b04416;
+  --saffron-light: #FFF4EF;
+  --stone:         #6B6560;
+  --stone-light:   #F5F2EE;
+  --dark:          #1C1410;
+  --white:         #FFFFFF;
+  --border:        rgba(0,0,0,0.08);
+  --success:       #16A34A;
+  --font-display:  'Playfair Display', Georgia, serif;
+  --font-body:     'DM Sans', system-ui, sans-serif;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+  --radius-xl:     24px;
+  --transition:    0.2s ease;
+}
+
+html, body {
+  min-height: 100%;
+  font-family: var(--font-body);
+  background: var(--stone-light);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Page ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+/* ── Card ── */
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  padding: 48px 40px 40px;
+  text-align: center;
+  animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Animated SVG checkmark ── */
+.check-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.check-circle {
+  width: 72px;
+  height: 72px;
+  overflow: visible;
+}
+
+.check-circle__bg {
+  stroke: #DCFCE7;
+  stroke-width: 2;
+  fill: #F0FDF4;
+}
+
+.check-circle__ring {
+  stroke: var(--success);
+  stroke-width: 2.5;
+  stroke-dasharray: 157;
+  stroke-dashoffset: 157;
+  stroke-linecap: round;
+  animation: drawRing 0.6s 0.2s ease forwards;
+}
+
+.check-circle__tick {
+  stroke: var(--success);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  animation: drawTick 0.4s 0.75s ease forwards;
+}
+
+@keyframes drawRing {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes drawTick {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ── Heading ── */
+h1 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  font-size: 14.5px;
+  color: var(--stone);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+
+.subtitle strong {
+  color: var(--dark);
+  font-weight: 600;
+}
+
+/* ── Detail grid ── */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.detail-item {
+  background: var(--saffron-light);
+  border: 1px solid rgba(200,80,26,0.12);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-icon { font-size: 18px; margin-bottom: 2px; }
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stone);
+}
+
+.detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.detail-value.price {
+  color: var(--saffron);
+  font-size: 16px;
+}
+
+/* ── Email note ── */
+.email-note {
+  font-size: 13px;
+  color: var(--stone);
+  background: var(--stone-light);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* ── Action buttons ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), border-color var(--transition);
+}
+
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--saffron);
+  color: var(--white);
+  border: 2px solid var(--saffron);
+}
+
+.btn-primary:hover { background: var(--saffron-hover); border-color: var(--saffron-hover); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--saffron);
+  border: 2px solid rgba(200,80,26,0.3);
+}
+
+.btn-outline:hover {
+  background: var(--saffron-light);
+  border-color: var(--saffron);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .card { padding: 36px 20px 28px; }
+  .detail-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 24px; }
+}
 /* ---------- Body & Background ---------- */
 body {
     font-family: 'Poppins', sans-serif;
@@ -69,4 +289,21 @@ a {
         width: 90%;
         padding: 35px 20px;
     }
+}
+
+.back-btn{
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #16a34a;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.back-btn:hover{
+  background: #15803d;
+  transform: translateY(-2px);
 }

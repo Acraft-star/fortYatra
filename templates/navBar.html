@@ -1,0 +1,104 @@
+{% load static %}
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+
+    <!-- Logo -->
+    <a href="/home/" class="logo">Fort<span>Yatra</span></a>
+
+    <!-- Desktop nav links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/home/">Home</a></li>
+      <li><a href="/fort-us/">Explore Forts</a></li>
+      <li><a href="/best-packages/">Browse Packages</a></li>
+      <li><a href="/books/">Books</a></li>
+      <li><a href="/about/">About</a></li>
+    </ul>
+
+    <!-- Actions -->
+    <div class="nav-actions">
+      {% if request.session.user_name %}
+        <span class="welcome-text">👋 {{ request.session.user_name }}</span>
+        <a href="/my-booking/" class="btn-outline">My Bookings</a>
+        <a href="/logout/" class="btn-ghost">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn-ghost">Login</a>
+        <a href="/register/" class="btn-primary">Register</a>
+      {% endif %}
+    </div>
+
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-links">
+      <li><a href="/home/">🏠 Home</a></li>
+      <li><a href="/fort-us/">🏰 Explore Forts</a></li>
+      <li><a href="/best-packages/">📦 Browse Packages</a></li>
+      <li><a href="/books/">📚 Books</a></li>
+      <li><a href="/about/">ℹ️ About</a></li>
+    </ul>
+    <div class="mobile-actions">
+      {% if request.session.user_name %}
+        <span class="welcome-text">👋 {{ request.session.user_name }}</span>
+        <a href="/my-booking/" class="btn-outline full">My Bookings</a>
+        <a href="/logout/" class="btn-ghost full">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn-ghost full">Login</a>
+        <a href="/register/" class="btn-primary full">Register Free</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+
+<script>
+  // ── Active link highlight ──
+  const links = document.querySelectorAll('.nav-links a, .mobile-links a');
+  links.forEach(link => {
+    if (link.href === window.location.href ||
+        window.location.pathname.startsWith(new URL(link.href).pathname)) {
+      link.classList.add('active');
+    }
+  });
+
+  // ── Hamburger toggle ──
+  const hamburger   = document.getElementById('hamburger');
+  const mobileMenu  = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-links a, .mobile-actions a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#navbar')) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+      document.body.style.overflow = '';
+    }
+  });
+
+  // ── Scroll shrink ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>

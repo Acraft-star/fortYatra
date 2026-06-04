@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Confirmed – FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/thank_you.css' %}">
+</head>
+<body>
+
+  <div class="page">
+    <div class="card">
+
+      <!-- Animated checkmark -->
+      <div class="check-wrap">
+        <svg class="check-circle" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+          <circle class="check-circle__bg"  cx="26" cy="26" r="25" fill="none"/>
+          <circle class="check-circle__ring" cx="26" cy="26" r="25" fill="none"/>
+          <path   class="check-circle__tick" fill="none" d="M14 27 l8 8 l16-16"/>
+        </svg>
+      </div>
+
+      <h1>Booking Confirmed!</h1>
+      <p class="subtitle">Thank you, <strong>{{ full_name }}</strong>! Your trip has been successfully booked. Get ready for an amazing adventure with FortYatra.</p>
+
+      <!-- Booking detail pills -->
+      {% if package_name or trip_date or seats_booked or total_price %}
+      <div class="detail-grid">
+        {% if package_name %}
+        <div class="detail-item">
+          <span class="detail-icon">🏕️</span>
+          <span class="detail-label">Package</span>
+          <span class="detail-value">{{ package_name }}</span>
+        </div>
+        {% endif %}
+        {% if trip_date %}
+        <div class="detail-item">
+          <span class="detail-icon">📅</span>
+          <span class="detail-label">Trip Date</span>
+          <span class="detail-value">{{ trip_date }}</span>
+        </div>
+        {% endif %}
+        {% if seats_booked %}
+        <div class="detail-item">
+          <span class="detail-icon">🪑</span>
+          <span class="detail-label">Seats</span>
+          <span class="detail-value">{{ seats_booked }}</span>
+        </div>
+        {% endif %}
+        {% if total_price %}
+        <div class="detail-item">
+          <span class="detail-icon">💰</span>
+          <span class="detail-label">Total Paid</span>
+          <span class="detail-value price">₹{{ total_price }}</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <p class="email-note">📧 A confirmation has been sent to your registered email address.</p>
+
+      <a href="{% url 'best_packages' %}" class="back-btn">
+       ← Back to Packages
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 25px;
+    background-color: #f5f7fa;
+    color: #222;
+}
+
+.ticket-container {
+    width: 100%;
+    background: #ffffff;
+    border: 2px solid #dcdcdc;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.ticket-header {
+    text-align: center;
+    border-bottom: 2px dashed #cfcfcf;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.brand-name {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.brand-tagline {
+    font-size: 14px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.ticket-title {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.ticket-info {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.ticket-info td {
+    padding: 14px;
+    border: 1px solid #e4e4e4;
+    font-size: 14px;
+}
+
+.ticket-label {
+    width: 40%;
+    font-weight: bold;
+    background: #f9f9f9;
+}
+
+.trip-box {
+    margin-top: 25px;
+    padding: 18px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.trip-box h2 {
+    margin: 10px 0 0;
+    font-size: 28px;
+}
+
+.payment-status {
+    margin-top: 20px;
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.footer-note {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    border-top: 1px dashed #ccc;
+    padding-top: 15px;
+}
+
+.thank-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 15px;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+  
+  <link rel="stylesheet" href="/static/css/packages.css">
+</head>
+
+<body>
+
+  {% include "navBar.html" %}
+
+  <footer style="height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">Fort<span>Yatra</span></div>
+          <p>Maharashtra's first community-driven fort travel platform. Connect, explore, and conquer together.</p>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Explore</h5>
+          <ul>
+            <li><a href="#">All Forts</a></li>
+            <li><a href="#">Upcoming Trips</a></li>
+            <li><a href="#">Trip Planners</a></li>
+            <li><a href="#">Fort Map</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Account</h5>
+          <ul>
+            <li><a href="#">Register</a></li>
+            <li><a href="#">Login</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">List a Trip</a></li>
+          </ul>
+        </div>
+ 
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+ 
+      <div class="footer-bottom">
+        <span>&copy; 2025 FortYatra. Made with ❤️ for Maharashtra fort lovers.</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

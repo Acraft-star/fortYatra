@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FortYatra Virtual Ticket</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 25px;
+        }
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+
+        .ticket {
+            border: 3px solid #1d3557;
+            padding: 25px;
+            background: #ffffff;
+        }
+
+        .top-header {
+            text-align: center;
+            border-bottom: 2px dashed #1d3557;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .offer-box {
+            text-align: center;
+            border: 2px solid #ddd;
+            padding: 12px;
+            margin: 20px 0;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .ticket-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .ticket-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .label {
+            width: 40%;
+            font-weight: bold;
+            background: #f7f7f7;
+        }
+
+        .amount-box {
+            text-align: center;
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            padding: 15px;
+        }
+
+        .amount-box h2 {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .status-box {
+            text-align: center;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 25px;
+            text-align: center;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="ticket">
+
+    <div class="top-header">
+        <div class="brand">FortYatra Virtual Ticket</div>
+        <div class="subtitle">
+            Maharashtra Fort Adventure Pass
+        </div>
+    </div>
+
+    <div class="offer-box">
+        Booking Confirmed Successfully
+    </div>
+
+    <table class="ticket-table">
+        <tr>
+            <td class="label">Traveller Name</td>
+            <td>{{ your_name }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Driver Name</td>
+            <td>{{ driver_name }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Driver Contact</td>
+            <td>{{ driver_contact }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Package Name</td>
+            <td>{{ package_name }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Seats Booked</td>
+            <td>{{ seat }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Trip Date</td>
+            <td>{{ trip_date }}</td>
+        </tr>
+
+        <tr>
+            <td class="label">Payment Method</td>
+            <td>{{ payment_method }}</td>
+        </tr>
+    </table>
+
+    <div class="amount-box">
+        <strong>Total Amount Paid</strong>
+        <h2>₹{{ total_price }}</h2>
+    </div>
+
+    <div class="status-box">
+        Ticket Status: Confirmed
+    </div>
+
+    <div class="footer">
+        FortYatra • Safe Journey • Trusted Trekking Service
+    </div>
+
+</div>
+
+</body>
+</html>

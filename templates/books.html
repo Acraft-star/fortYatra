@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Books — FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="/static/css/books.css">
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+   {% include "navBar.html" %}
+  <!-- ==================== PAGE BANNER ==================== -->
+  <section class="page-banner">
+    <div class="banner-book-deco">📚</div>
+    <div class="container">
+      <div class="banner-inner">
+        <div>
+          <div class="banner-crumb">
+            <a href="/">Home</a><span>/</span>
+            <span style="color:rgba(255,255,255,0.65)">Books</span>
+          </div>
+          <div class="banner-eyebrow">History &amp; Heritage Library</div>
+          <h1 class="banner-title">Read the <em>Stories</em><br>Behind the Stones</h1>
+          <p class="banner-subtitle">
+            Explore books on Maharashtra's mighty forts, the legends of the Maratha Empire,
+            the life of Chhatrapati Shivaji Maharaj, and the valour of Sambhaji Maharaj —
+            written by historians, scholars, and storytellers.
+          </p>
+        </div>
+        <div class="banner-stats">
+          <div class="b-stat">
+            <div class="b-stat-num">40+</div>
+            <div class="b-stat-label">Books Listed</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">5</div>
+            <div class="b-stat-label">Categories</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">4</div>
+            <div class="b-stat-label">Languages</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FILTER BAR ==================== -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="bookSearch" placeholder="Search title or author…" />
+      </div>
+      <div class="filter-chips" id="categoryChips">
+        <button class="chip active" data-cat="all">All Books</button>
+        <button class="chip" data-cat="shivaji">Shivaji Maharaj</button>
+        <button class="chip" data-cat="sambhaji">Sambhaji Maharaj</button>
+        <button class="chip" data-cat="forts">Forts &amp; Trekking</button>
+        <button class="chip" data-cat="maratha">Maratha Empire</button>
+        <button class="chip" data-cat="history">General History</button>
+      </div>
+      <div class="filter-right">
+        <span class="result-count">Showing <strong id="visibleCount">0</strong> books</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ALL BOOKS GRID ==================== -->
+  <section class="books-section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Full Collection</p>
+          <h2 class="section-heading">All Books</h2>
+        </div>
+      </div>
+
+      <div class="books-grid" id="booksGrid">
+
+        <!-- ── SHIVAJI MAHARAJ ─────────────────────── -->
+
+        <div class="book-card" data-cat="shivaji" data-title="shivaji the great maratha ranjit desai" data-id="shivaji_ranjit">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/71NDa85qT7L._AC_UY218_.jpg" alt="Shivaji The Great Maratha"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('shivaji_ranjit')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-shivaji">Shivaji Maharaj</span></div>
+            <div class="book-card-title">Shivaji — The Great Maratha</div>
+            <div class="book-card-author">Ranjit Desai</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.9</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span><span class="lang-pill">Hindi</span></div>
+              <button class="btn-get" onclick="openModal('shivaji_ranjit')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="shivaji" data-title="raja shivchhatrapati babasaheb purandare" data-id="raja_shiv">
+          <div class="book-cover-wrap">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRfz01RuC3meW6b5Dmn31o7rpIbkhS-kYgqw&s" alt="Raja Shivchhatrapati"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('raja_shiv')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-shivaji">Shivaji Maharaj</span></div>
+            <div class="book-card-title">Raja Shivchhatrapati</div>
+            <div class="book-card-author">Babasaheb Purandare</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.9</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span></div>
+              <button class="btn-get" onclick="openModal('raja_shiv')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="shivaji" data-title="shivaji his life and times jadunath sarkar" data-id="shivaji_sarkar">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/61arSsnGR7L._AC_UY218_.jpg" alt="Shivaji and His Times"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('shivaji_sarkar')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-shivaji">Shivaji Maharaj</span></div>
+            <div class="book-card-title">Shivaji and His Times</div>
+            <div class="book-card-author">Jadunath Sarkar</div>
+            <div class="book-card-stars"><span class="stars">★★★★☆</span><span>4.6</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">English</span></div>
+              <button class="btn-get" onclick="openModal('shivaji_sarkar')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="shivaji" data-title="chhatrapati shivaji maharaj va savarkar" data-id="shivaji_savar">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/71YvClFkhmL._AC_UY218_.jpg" alt="Chhatrapati Shivaji Maharaj"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('shivaji_savar')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-shivaji">Shivaji Maharaj</span></div>
+            <div class="book-card-title">Chhatrapati Shivaji Maharaj</div>
+            <div class="book-card-author">V.D. Savarkar</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.8</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span><span class="lang-pill">English</span></div>
+              <button class="btn-get" onclick="openModal('shivaji_savar')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SAMBHAJI MAHARAJ ─────────────────────── -->
+
+        <div class="book-card" data-cat="sambhaji" data-title="sambhaji vishwas patil" data-id="sambhaji_vishwas">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/719wEbJ-zxL._AC_UY218_.jpg" alt="Sambhaji"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('sambhaji_vishwas')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-sambhaji">Sambhaji Maharaj</span></div>
+            <div class="book-card-title">Sambhaji</div>
+            <div class="book-card-author">Vishwas Patil</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.8</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span><span class="lang-pill">Hindi</span></div>
+              <button class="btn-get" onclick="openModal('sambhaji_vishwas')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="sambhaji" data-title="shrimaan yogi ranjit desai sambhaji" data-id="shriman_yogi">
+          <div class="book-cover-wrap">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzca9wsYt_Ilvg_yrCfNB96xBZvqPr3aguQw&s" alt="Shriman Yogi"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('shriman_yogi')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-sambhaji">Sambhaji Maharaj</span></div>
+            <div class="book-card-title">Shriman Yogi</div>
+            <div class="book-card-author">Ranjit Desai</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.9</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span></div>
+              <button class="btn-get" onclick="openModal('shriman_yogi')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── FORTS & TREKKING ─────────────────────── -->
+
+        <div class="book-card" data-cat="forts" data-title="sahyadri forts maharashtra guide trekking" data-id="sahyadri_forts">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/71MjHXcaeaL._AC_UY218_.jpg" alt="Sahyadri Forts"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('sahyadri_forts')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-forts">Forts &amp; Trekking</span></div>
+            <div class="book-card-title">Sahyadri Forts: A Trekker's Guide</div>
+            <div class="book-card-author">Anand Palande</div>
+            <div class="book-card-stars"><span class="stars">★★★★☆</span><span>4.5</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span><span class="lang-pill">English</span></div>
+              <button class="btn-get" onclick="openModal('sahyadri_forts')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="forts" data-title="maharashtra forts history architecture" data-id="maha_forts_arch">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/71axtWqHY1L._AC_UY218_.jpg" alt="Maharashtra Forts"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('maha_forts_arch')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-forts">Forts &amp; Trekking</span></div>
+            <div class="book-card-title">Maharashtra Forts: History &amp; Architecture</div>
+            <div class="book-card-author">P.K. Gode</div>
+            <div class="book-card-stars"><span class="stars">★★★★☆</span><span>4.4</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">English</span></div>
+              <button class="btn-get" onclick="openModal('maha_forts_arch')">Find</button>
+            </div>
+          </div>
+        </div>
+
+      
+
+        <!-- ── MARATHA EMPIRE ─────────────────────── -->
+
+        <div class="book-card" data-cat="maratha" data-title="fall of maratha empire jadunath sarkar" data-id="fall_maratha">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/61GsNJF5eyL._AC_UY218_.jpg" alt="Fall of the Mughal Empire"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('fall_maratha')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-maratha">Maratha Empire</span></div>
+            <div class="book-card-title">Fall of the Mughal Empire (Vol. 1–4)</div>
+            <div class="book-card-author">Jadunath Sarkar</div>
+            <div class="book-card-stars"><span class="stars">★★★★☆</span><span>4.7</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">English</span></div>
+              <button class="btn-get" onclick="openModal('fall_maratha')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="maratha" data-title="panipat vishwas patil maratha war" data-id="panipat">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/71Izhh2NcCS._AC_UY218_.jpg" alt="Panipat"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('panipat')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-maratha">Maratha Empire</span></div>
+            <div class="book-card-title">Panipat</div>
+            <div class="book-card-author">Vishwas Patil</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.8</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span><span class="lang-pill">Hindi</span></div>
+              <button class="btn-get" onclick="openModal('panipat')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="book-card" data-cat="maratha" data-title="peshwa bajirao maratha peshwai" data-id="peshwa_bajirao">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/81zF5Tt6dML._AC_UY218_.jpg" alt="Peshwa Bajirao"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('peshwa_bajirao')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-maratha">Maratha Empire</span></div>
+            <div class="book-card-title">Rau (Peshwa Bajirao)</div>
+            <div class="book-card-author">N.S. Inamdar</div>
+            <div class="book-card-stars"><span class="stars">★★★★★</span><span>4.8</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">Marathi</span></div>
+              <button class="btn-get" onclick="openModal('peshwa_bajirao')">Find</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── GENERAL HISTORY ─────────────────────── -->
+
+        <div class="book-card" data-cat="history" data-title="discovery of india nehru history" data-id="discovery_india">
+          <div class="book-cover-wrap">
+            <img src="https://m.media-amazon.com/images/I/61W2lAkkD1L._AC_UY218_.jpg" alt="The Discovery of India"/>
+            <div class="book-overlay"><button class="overlay-btn" onclick="openModal('discovery_india')">Quick View</button></div>
+          </div>
+          <div class="book-card-body">
+            <div class="book-card-cat"><span class="book-cat-badge cat-history">General History</span></div>
+            <div class="book-card-title">The Discovery of India</div>
+            <div class="book-card-author">Jawaharlal Nehru</div>
+            <div class="book-card-stars"><span class="stars">★★★★☆</span><span>4.5</span></div>
+            <div class="book-card-footer">
+              <div class="book-langs"><span class="lang-pill">English</span><span class="lang-pill">Hindi</span></div>
+              <button class="btn-get" onclick="openModal('discovery_india')">Find</button>
+            </div>
+          </div>
+        </div>
+
+       
+
+      </div><!-- /#booksGrid -->
+    </div>
+  </section>
+
+  <!-- ==================== BOOK DETAIL MODAL ==================== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modalBox">
+      <div class="modal-top">
+        <div class="modal-cover" id="modalCoverWrap">
+          <img id="modalImg" src="" alt=""/>
+        </div>
+        <div class="modal-meta">
+          <div class="modal-cat" id="modalCat"></div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-author" id="modalAuthor"></div>
+          <div class="modal-stars" id="modalStars"></div>
+          <div class="modal-pills" id="modalPills"></div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section-title">About this Book</div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-section-title">Available in</div>
+        <div class="modal-langs" id="modalLangs"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="modal-btn-primary" id="modalFindBtn">Find / Buy this Book</button>
+        <button class="modal-btn-close" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== QUOTE BANNER ==================== -->
+  <div style="padding: 52px 40px; max-width:1200px; margin:0 auto">
+    <div class="quote-banner">
+      <p class="quote-text">
+        "He who builds his character, builds his nation. Knowledge of history is the
+        foundation of every great warrior's mind."
+      </p>
+      <p class="quote-attr">— inspired by <strong>Chhatrapati Shivaji Maharaj</strong></p>
+    </div>
+  </div>
+
+  
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+
+    /* ─── Book data for modal ─── */
+    const bookData = {
+      shivaji_ranjit: {
+        title: "Shivaji — The Great Maratha", author: "Ranjit Desai",
+        cat: "shivaji", catLabel: "Shivaji Maharaj",
+        rating: "4.9", ratingCount: "12,400 ratings",
+        tags: ["Biography", "Historical Novel", "Marathi Literature"],
+        langs: ["Marathi", "Hindi", "English"],
+        img: "https://m.media-amazon.com/images/I/71NDa85qT7L._AC_UY218_.jpg",
+        desc: "The definitive Marathi biographical novel of Chhatrapati Shivaji Maharaj. Narrating the king's life from his childhood at Shivneri Fort to his historic coronation at Raigad in 1674, Ranjit Desai weaves historical fact with literary brilliance. This is widely considered the greatest Marathi novel of the 20th century and has been translated into Hindi, English, and several other Indian languages. A must-read before visiting any Maratha fort.",
+        link: "https://www.amazon.in/s?k=Shivaji+Ranjit+Desai"
+      },
+      sambhaji_vishwas: {
+        title: "Sambhaji", author: "Vishwas Patil",
+        cat: "sambhaji", catLabel: "Sambhaji Maharaj",
+        rating: "4.8", ratingCount: "9,800 ratings",
+        tags: ["Historical Novel", "Valour & Sacrifice", "Maratha Wars"],
+        langs: ["Marathi", "Hindi"],
+        img: "https://m.media-amazon.com/images/I/719wEbJ-zxL._AC_UY218_.jpg",
+        desc: "A monumental and deeply moving historical novel about Chhatrapati Sambhaji Maharaj — son of Shivaji and the second Chhatrapati of the Maratha Empire. Vishwas Patil vividly portrays the complex, fiercely valiant, and often misunderstood ruler who was captured by Aurangzeb and chose to endure the most brutal torture rather than convert his faith. His sacrifice galvanised the Maratha resistance for decades.",
+        link: "https://www.amazon.in/s?k=Sambhaji+Vishwas+Patil"
+      },
+      raja_shiv: {
+        title: "Raja Shivchhatrapati", author: "Babasaheb Purandare",
+        cat: "shivaji", catLabel: "Shivaji Maharaj",
+        rating: "4.9", ratingCount: "18,000 ratings",
+        tags: ["Definitive Biography", "Scholarly", "Epic"],
+        langs: ["Marathi"],
+        img: "https://m.media-amazon.com/images/I/61arSsnGR7L._AC_UY218_.jpg",
+        desc: "Written over decades of meticulous research by Shivshahir Babasaheb Purandare, this two-volume biography is the most authoritative and celebrated account of Shivaji Maharaj's life ever written. Drawing from hundreds of primary documents, Modi-script letters, and accounts by contemporaries, Purandare brings every battle, fort construction, administrative reform, and personal relationship of Shivaji to vivid life.",
+        link: "https://www.amazon.in/s?k=Raja+Shivchhatrapati+Purandare"
+      },
+      shivaji_sarkar: {
+        title: "Shivaji and His Times", author: "Jadunath Sarkar",
+        cat: "shivaji", catLabel: "Shivaji Maharaj",
+        rating: "4.6", ratingCount: "3,200 ratings",
+        tags: ["Academic", "Colonial-Era Scholarship", "English"],
+        langs: ["English"],
+        img: "https://m.media-amazon.com/images/I/71YvClFkhmL._AC_UY218_.jpg",
+        desc: "A scholarly English-language biography of Shivaji Maharaj by eminent historian Sir Jadunath Sarkar. First published in 1919, this remains one of the most rigorous and widely cited academic works on Shivaji. Sarkar examines the political, military, and religious dimensions of Shivaji's rule with extensive reference to Persian and Marathi sources. Essential reading for serious history students.",
+        link: "https://www.amazon.in/s?k=Shivaji+His+Times+Jadunath+Sarkar"
+      },
+      shivaji_savar: {
+        title: "Chhatrapati Shivaji Maharaj", author: "V.D. Savarkar",
+        cat: "shivaji", catLabel: "Shivaji Maharaj",
+        rating: "4.8", ratingCount: "5,600 ratings",
+        tags: ["Political Philosophy", "Hindavi Swarajya", "Classic"],
+        langs: ["Marathi", "English"],
+        img: "",
+        desc: "Vinayak Damodar Savarkar's passionate and ideologically charged writing on Chhatrapati Shivaji Maharaj focuses on the concept of Hindavi Swarajya — the idea of indigenous self-rule. Savarkar frames Shivaji's campaigns not merely as conquests but as the founding of a dharmic state free from foreign subjugation. A powerful and provocative read that has influenced generations of Maharashtrian thinkers.",
+        link: "https://www.amazon.in/s?k=Chhatrapati+Shivaji+Savarkar"
+      },
+      shriman_yogi: {
+        title: "Shriman Yogi", author: "Ranjit Desai",
+        cat: "sambhaji", catLabel: "Sambhaji Maharaj",
+        rating: "4.9", ratingCount: "14,500 ratings",
+        tags: ["Philosophical", "Biographical Novel", "Marathi Classic"],
+        langs: ["Marathi"],
+        img: "",
+        desc: "Often considered Ranjit Desai's masterpiece and one of the greatest Marathi novels ever written, Shriman Yogi portrays a deeply spiritual and philosophical Shivaji Maharaj. This is a different lens from his earlier biographical work — here Desai explores the inner life, the loneliness, and the divine conviction of a king who carried the weight of an entire civilisation on his shoulders.",
+        link: "https://www.amazon.in/s?k=Shriman+Yogi+Ranjit+Desai"
+      },
+      sahyadri_forts: {
+        title: "Sahyadri Forts: A Trekker's Guide", author: "Anand Palande",
+        cat: "forts", catLabel: "Forts & Trekking",
+        rating: "4.5", ratingCount: "2,100 ratings",
+        tags: ["Trekking Guide", "Route Maps", "Practical"],
+        langs: ["Marathi", "English"],
+        img: "",
+        desc: "A comprehensive trekker's field guide to the forts of the Sahyadri mountain range. Covering over 60 forts with detailed route descriptions, GPS waypoints, difficulty ratings, water source information, and nearby accommodation, this is the go-to reference book for anyone planning a Maharashtra fort trek. Includes rare photographs and historical context for each fort.",
+        link: "https://www.amazon.in/s?k=Sahyadri+Forts+Trekker+Guide"
+      },
+      maha_forts_arch: {
+        title: "Maharashtra Forts: History & Architecture", author: "P.K. Gode",
+        cat: "forts", catLabel: "Forts & Trekking",
+        rating: "4.4", ratingCount: "890 ratings",
+        tags: ["Architecture", "Academic", "Photography"],
+        langs: ["English"],
+        img: "",
+        desc: "A richly illustrated academic study of the architectural styles, construction techniques, and strategic design of Maharashtra's major forts. The book covers Maratha, Bahmani, Portuguese, and British-era modifications to fort structures, analysing bastions, water cisterns, secret passages, and temple complexes. A visually stunning coffee-table reference for heritage enthusiasts.",
+        link: "https://www.amazon.in/s?k=Maharashtra+Forts+Architecture"
+      },
+      durg_bhramanti: {
+        title: "Durg Bhramanachi Aawad", author: "Pramod Manohar",
+        cat: "forts", catLabel: "Forts & Trekking",
+        rating: "4.3", ratingCount: "1,400 ratings",
+        tags: ["Personal Narrative", "Trekking", "Marathi"],
+        langs: ["Marathi"],
+        img: "",
+        desc: "A personal travelogue and guide about the author's passion for exploring Maharashtra's forts. Written in vivid conversational Marathi, this book captures the emotional and physical experience of fort trekking — the pre-dawn starts, the monsoon mists, the discoveries of forgotten inscriptions, and the sense of connecting with history through your feet. Perfect for Marathi readers beginning their fort-trekking journey.",
+        link: "https://www.amazon.in/s?k=Durg+Bhramanachi+Aawad"
+      },
+      fall_maratha: {
+        title: "Fall of the Mughal Empire (Vol. 1–4)", author: "Jadunath Sarkar",
+        cat: "maratha", catLabel: "Maratha Empire",
+        rating: "4.7", ratingCount: "4,300 ratings",
+        tags: ["Academic", "Multi-volume", "Mughal-Maratha"],
+        langs: ["English"],
+        img: "",
+        desc: "A monumental four-volume scholarly work documenting the decline of the Mughal Empire and the simultaneous rise of the Maratha confederacy as the dominant power of 18th-century India. Jadunath Sarkar traces the Peshwa period, the Maratha conquests, the catastrophic defeat at Panipat in 1761, and the eventual fragmentation of Maratha power. The definitive academic source on this era.",
+        link: "https://www.amazon.in/s?k=Fall+Mughal+Empire+Jadunath+Sarkar"
+      },
+      panipat: {
+        title: "Panipat", author: "Vishwas Patil",
+        cat: "maratha", catLabel: "Maratha Empire",
+        rating: "4.8", ratingCount: "11,200 ratings",
+        tags: ["Historical Novel", "Epic Battle", "Tragedy"],
+        langs: ["Marathi", "Hindi"],
+        img: "",
+        desc: "The sweeping, devastating historical novel of the Third Battle of Panipat (1761) — the battle that changed the course of Indian history. Vishwas Patil narrates the Maratha confederation's magnificent but ultimately tragic campaign northward to Delhi, culminating in their catastrophic defeat by Ahmad Shah Durrani's Afghan forces. A masterfully written tragedy of hubris, bravery, and heartbreak.",
+        link: "https://www.amazon.in/s?k=Panipat+Vishwas+Patil"
+      },
+      peshwa_bajirao: {
+        title: "Rau (Peshwa Bajirao)", author: "N.S. Inamdar",
+        cat: "maratha", catLabel: "Maratha Empire",
+        rating: "4.8", ratingCount: "7,800 ratings",
+        tags: ["Historical Novel", "Peshwa Era", "Romance"],
+        langs: ["Marathi"],
+        img: "",
+        desc: "N.S. Inamdar's celebrated Marathi novel about Peshwa Bajirao I — arguably the greatest Maratha military commander after Shivaji himself. Undefeated in 41 battles, Bajirao's campaigns expanded the Maratha Empire from the Deccan to Delhi. The novel also explores his legendary and tragic love story with Mastani. A sweeping epic of ambition, love, and empire.",
+        link: "https://www.amazon.in/s?k=Rau+NS+Inamdar"
+      },
+      discovery_india: {
+        title: "The Discovery of India", author: "Jawaharlal Nehru",
+        cat: "history", catLabel: "General History",
+        rating: "4.5", ratingCount: "8,900 ratings",
+        tags: ["Broad History", "Philosophy", "National Classic"],
+        langs: ["English", "Hindi"],
+        img: "",
+        desc: "Written while imprisoned by the British in Ahmednagar Fort during 1942–1946, this is Jawaharlal Nehru's sweeping meditation on India's history and civilisation from the Indus Valley to the independence movement. The Maratha chapters offer a fascinating perspective on how post-independence India understood Shivaji and the Maratha Empire's role in the nation's story. A classic for contextualising Maharashtra's history.",
+        link: "https://www.amazon.in/s?k=Discovery+of+India+Nehru"
+      },
+      deccan_history: {
+        title: "Medieval Deccan", author: "H.K. Sherwani",
+        cat: "history", catLabel: "General History",
+        rating: "4.3", ratingCount: "680 ratings",
+        tags: ["Academic", "Deccan Sultanates", "Pre-Maratha"],
+        langs: ["English"],
+        img: "",
+        desc: "A scholarly study of the Deccan Sultanates — the Bahmani, Adilshahi, Nizamshahi, Qutbshahi, and Imadshahi kingdoms — that preceded and shaped the world into which Shivaji Maharaj was born. Understanding these powers is essential context for the Maratha wars. The book examines governance, architecture, trade, and the multicultural society of medieval Deccan before the Maratha rise.",
+        link: "https://www.amazon.in/s?k=Medieval+Deccan+Sherwani"
+      }
+    };
+
+    const catColors = {
+      shivaji:  'cat-shivaji',
+      sambhaji: 'cat-sambhaji',
+      forts:    'cat-forts',
+      maratha:  'cat-maratha',
+      history:  'cat-history'
+    };
+
+    /* ─── Modal open/close ─── */
+    function openModal(id) {
+      const d = bookData[id];
+      if (!d) return;
+
+      // cover image
+      const img = document.getElementById('modalImg');
+      img.src = d.img; img.alt = d.title; img.style.display = 'block';
+
+      document.getElementById('modalCat').innerHTML =
+        `<span class="book-cat-badge ${catColors[d.cat]}">${d.catLabel}</span>`;
+      document.getElementById('modalTitle').textContent = d.title;
+      document.getElementById('modalAuthor').innerHTML = `by <strong>${d.author}</strong>`;
+      document.getElementById('modalStars').innerHTML =
+        `<span class="stars">${'★'.repeat(Math.floor(+d.rating))}${+d.rating % 1 >= 0.5 ? '☆' : ''}</span>
+         <span>${d.rating} · ${d.ratingCount}</span>`;
+      document.getElementById('modalPills').innerHTML =
+        d.tags.map(t => `<span class="modal-pill">${t}</span>`).join('');
+      document.getElementById('modalDesc').textContent = d.desc;
+      document.getElementById('modalLangs').innerHTML =
+        d.langs.map(l => `<span class="modal-lang">📖 ${l}</span>`).join('');
+      document.getElementById('modalFindBtn').onclick = () => window.open(d.link, '_blank');
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ─── Category chip filter ─── */
+    const chips   = document.querySelectorAll('.chip');
+    const cards   = document.querySelectorAll('.book-card');
+    const countEl = document.getElementById('visibleCount');
+
+    function updateCount() {
+      countEl.textContent = [...cards].filter(c => c.style.display !== 'none').length;
+    }
+
+    function applyFilters() {
+      const activeCat = document.querySelector('.chip.active').dataset.cat;
+      const q = document.getElementById('bookSearch').value.toLowerCase().trim();
+      cards.forEach(card => {
+        const catMatch   = activeCat === 'all' || card.dataset.cat === activeCat;
+        const titleMatch = card.dataset.title.includes(q);
+        card.style.display = (catMatch && titleMatch) ? '' : 'none';
+      });
+      updateCount();
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    document.getElementById('bookSearch').addEventListener('input', applyFilters);
+
+    /* ─── Initial count ─── */
+    updateCount();
+  </script>
+
+</body>
+</html>

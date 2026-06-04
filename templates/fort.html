@@ -1,66 +1,697 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
-    {% load static %}
- <meta charset="UTF-8" />
+  {% load static %}
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Forts — FortYatra</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
-  
-     <title>All forts — FortYatra</title>
-    <link rel="stylesheet" href="{% static 'css/fort.css' %}">
+
+  <link rel="stylesheet" href="/static/css/fort.css">
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+
 </head>
 <body>
+  <!-- ==================== NAVBAR ==================== -->
+ {% include "navBar.html" %}
 
-<!-- ==================== NAVBAR ==================== -->
-  <nav class="navbar">
+  <!-- ==================== PAGE BANNER ==================== -->
+  <section class="page-banner">
     <div class="container">
-      <a href="#" class="logo">Fort<span>Yatra</span></a>
- 
-      <ul class="nav-links">
-        <li class="active"><a href="/home/">Home</a></li>
-        <li><a href="/fort-us/">Explore Forts</a></li>
-        <li><a href="/best-packages/">Browse Packages</a></li>
-        <li><a href="#">Book's</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
- 
-      <div class="nav-actions">
-        <button class="btn-ghost">Login</button>
-        <button class="btn-primary"><a href="/register/">Register Free</a></button>
+      <div class="banner-inner">
+        <div>
+          <div class="banner-crumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span style="color:rgba(255,255,255,0.65)">Explore Forts</span>
+          </div>
+          <h1 class="banner-title">Discover <em>Maharashtra's</em><br>Mighty Forts</h1>
+          <p class="banner-subtitle">
+            From towering Sahyadri peaks to ancient sea bastions  explore the history,
+            legends, and grandeur of every fort across Maharashtra.
+            Perfect for first-timers and seasoned trekkers alike.
+          </p>
+        </div>
+        <div class="banner-stats">
+          <div class="b-stat">
+            <div class="b-stat-num">10+</div>
+            <div class="b-stat-label">Forts Listed</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">6</div>
+            <div class="b-stat-label">Regions</div>
+          </div>
+          <div class="b-stat">
+            <div class="b-stat-num">3</div>
+            <div class="b-stat-label">Fort Types</div>
+          </div>
+        </div>
       </div>
- 
-      <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
-  </nav>
- 
+  </section>
 
-<div class="fort-container">
-    <h1>भारताचे प्रसिद्ध किल्ले</h1>
+  <!-- ==================== FILTER BAR ==================== -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="fortSearch" placeholder="Search fort name…" />
+      </div>
 
-    <div class="fort-card">
-        <img src="{% static 'img/rajgad.png' %}" alt="">
-        <h2>राजगड किल्ला – महाराष्ट्र</h2>
-        <p>राजगड किल्ला हा छत्रपती शिवाजी महाराजांचा जुना राजधानी किल्ला आहे.</p>
+      <div class="filter-chips" id="regionChips">
+        <button class="chip active" data-region="all">All Regions</button>
+        <button class="chip" data-region="sahyadri">Sahyadri Range</button>
+        <button class="chip" data-region="konkan">Konkan Coast</button>
+        <button class="chip" data-region="marathwada">Marathwada</button>
+        <button class="chip" data-region="vidarbha">Vidarbha</button>
+        <button class="chip" data-region="nashik">Nashik &amp; Trimbak</button>
+        <button class="chip" data-region="pune">Pune Region</button>
+      </div>
+
+      <div class="filter-right">
+        <span class="result-count">
+          Showing <strong id="visibleCount">0</strong> forts
+        </span>
+      </div>
     </div>
+  </div>
 
-    <div class="fort-card">
-        <img src="{% static 'img/shivneri.jpg' %}" alt="">
-        <h2>शिवनेरी किल्ला – महाराष्ट्र</h2>
-        <p>शिवनेरी किल्ला हा शिवाजी महाराजांचा जन्मस्थान आहे.</p>
+  <!-- ==================== FORTS GRID ==================== -->
+  <section class="forts-section">
+    <div class="container">
+      <div class="forts-grid" id="fortsGrid">
+
+        <!-- 1. Rajgad -->
+        <div class="fort-card" data-region="sahyadri" data-name="rajgad"
+             data-modal="rajgad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/rajgad.jpg"
+                 alt="Rajgad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-1" style="display:none">🏰</div>
+            <span class="fort-region-tag">📍 Sahyadri Range</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Rajgad Fort</div>
+            <div class="fort-location">📌 Pune District, Maharashtra</div>
+            <p class="fort-desc">
+              Once the capital of Chhatrapati Shivaji Maharaj's empire for 26 years, Rajgad
+              is one of the largest and most strategically significant forts in Maharashtra.
+              Standing at 4,514 ft, it offers breathtaking views of the Sahyadri range.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 4,514 ft</span>
+              <span class="fact-pill">🏛️ 17th Century</span>
+              <span class="fact-pill">🥾 Moderate</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('rajgad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Sinhagad -->
+        <div class="fort-card" data-region="pune" data-name="sinhagad"
+             data-modal="sinhagad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/sinhagad.jpg"
+                 alt="Sinhagad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-2" style="display:none">⛰️</div>
+            <span class="fort-region-tag">📍 Pune Region</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Sinhagad Fort</div>
+            <div class="fort-location">📌 Pune, Maharashtra</div>
+            <p class="fort-desc">
+              Famous for the heroic battle of 1670 where Tanaji Malusare sacrificed his life
+              to recapture the fort for Shivaji Maharaj. Sinhagad, meaning "Lion's Fort,"
+              is a popular day-trek from Pune offering panoramic city views.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 4,396 ft</span>
+              <span class="fact-pill">🏛️ 2000+ yrs</span>
+              <span class="fact-pill">🥾 Easy</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('sinhagad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Raigad -->
+        <div class="fort-card" data-region="konkan" data-name="raigad"
+             data-modal="raigad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/raigad.jpg"
+                 alt="Raigad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-3" style="display:none">🏯</div>
+            <span class="fort-region-tag">📍 Konkan Coast</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Raigad Fort</div>
+            <div class="fort-location">📌 Raigad District, Maharashtra</div>
+            <p class="fort-desc">
+              The imperial capital of the Maratha Empire where Shivaji Maharaj was crowned
+              the first Chhatrapati in 1674. Perched at 2,700 ft, Raigad is connected by a
+              ropeway and is a deeply revered historical site for Marathis.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 2,700 ft</span>
+              <span class="fact-pill">🏛️ 1030 AD</span>
+              <span class="fact-pill">🥾 Easy</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('raigad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Harishchandragad -->
+        <div class="fort-card" data-region="sahyadri" data-name="harishchandragad"
+             data-modal="harishchandragad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9mLIupEHptyBd_WENQfbqkjXRBwqbB-EYzQ&s"
+                 alt="Harishchandragad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-4" style="display:none">🏔️</div>
+            <span class="fort-region-tag">📍 Sahyadri Range</span>
+            <span class="fort-type-tag type-cave">Cave Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Harishchandragad Fort</div>
+            <div class="fort-location">📌 Ahmednagar District, Maharashtra</div>
+            <p class="fort-desc">
+              Home to the breathtaking Konkan Kada — a concave cliff that curves inward with
+              a sheer 3,000 ft drop. One of the most dramatic trekking destinations in India,
+              with ancient cave temples, Kedareshwar cave, and stunning Sahyadri views.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 4,671 ft</span>
+              <span class="fact-pill">🏛️ 6th Century</span>
+              <span class="fact-pill">🥾 Hard</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('harishchandragad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. Sindhudurg -->
+        <div class="fort-card" data-region="konkan" data-name="sindhudurg"
+             data-modal="sindhudurg">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/sindhudurgha.jpg"
+                 alt="Sindhudurg Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-5" style="display:none">🌊</div>
+            <span class="fort-region-tag">📍 Konkan Coast</span>
+            <span class="fort-type-tag type-sea">Sea Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Sindhudurg Fort</div>
+            <div class="fort-location">📌 Sindhudurg District, Maharashtra</div>
+            <p class="fort-desc">
+              Built on a rocky island in the Arabian Sea by Shivaji Maharaj in 1664,
+              Sindhudurg is the greatest sea fort of the Maratha navy. The fort walls
+              stretch 3 km and legend says Shivaji's handprint is preserved in the stone.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">🌊 Sea Fort</span>
+              <span class="fact-pill">🏛️ 1664 AD</span>
+              <span class="fact-pill">🥾 Easy</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('sindhudurg')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Daulatabad -->
+        <div class="fort-card" data-region="marathwada" data-name="daulatabad"
+             data-modal="daulatabad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzspIWu8MRLj2m8EybkywN94onVFOpW_jaiQ&s"
+                 alt="Daulatabad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-6" style="display:none">🏯</div>
+            <span class="fort-region-tag">📍 Marathwada</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Daulatabad Fort</div>
+            <div class="fort-location">📌 Aurangabad District, Maharashtra</div>
+            <p class="fort-desc">
+              Originally called Devagiri and built atop a 200 m conical rock, Daulatabad is
+              considered one of India's most impregnable fortresses. It served as the capital
+              of the Yadava dynasty and later the Delhi Sultanate in the 14th century.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 200 m rock</span>
+              <span class="fact-pill">🏛️ 1187 AD</span>
+              <span class="fact-pill">🥾 Moderate</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('daulatabad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Torna -->
+        <div class="fort-card" data-region="sahyadri" data-name="torna"
+             data-modal="torna">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/torna.jpg"
+                 alt="Torna Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-1" style="display:none">🗻</div>
+            <span class="fort-region-tag">📍 Sahyadri Range</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Torna Fort</div>
+            <div class="fort-location">📌 Pune District, Maharashtra</div>
+            <p class="fort-desc">
+              The first fort captured by the young Shivaji Maharaj at just 16 years of age
+              in 1643, marking the beginning of the Maratha Empire. At 4,603 ft, Torna is
+              the highest fort in the Pune district and a tough but rewarding trek.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 4,603 ft</span>
+              <span class="fact-pill">🏛️ 1643 AD</span>
+              <span class="fact-pill">🥾 Hard</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('torna')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. Pratapgad -->
+        <div class="fort-card" data-region="konkan" data-name="pratapgad"
+             data-modal="pratapgad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxoMlzqLAJ-kWzOU-ct3j4d5KVHu2gvkfZwQ&s"
+                 alt="Pratapgad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-2" style="display:none">🏰</div>
+            <span class="fort-region-tag">📍 Konkan Coast</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Pratapgad Fort</div>
+            <div class="fort-location">📌 Satara District, Maharashtra</div>
+            <p class="fort-desc">
+              Site of the legendary Battle of Pratapgad in 1659 where Shivaji Maharaj
+              defeated and killed Afzal Khan. The fort houses a temple of Goddess Bhavani
+              and a large statue of Shivaji Maharaj visible from miles away.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 3,543 ft</span>
+              <span class="fact-pill">🏛️ 1656 AD</span>
+              <span class="fact-pill">🥾 Moderate</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('pratapgad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. Shivneri -->
+        <div class="fort-card" data-region="nashik" data-name="shivneri"
+             data-modal="shivneri">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="../static/img/shivneri.jpg"
+                 alt="Shivneri Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-4" style="display:none">⛩️</div>
+            <span class="fort-region-tag">📍 Nashik Region</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Shivneri Fort</div>
+            <div class="fort-location">📌 Junnar, Pune District, Maharashtra</div>
+            <p class="fort-desc">
+              The birthplace of Chhatrapati Shivaji Maharaj, born on February 19, 1630.
+              Shivneri holds immense emotional and historical importance for the Marathi
+              people. The fort contains a temple and a statue marking Shivaji's birthplace.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 3,500 ft</span>
+              <span class="fact-pill">🏛️ 1630 AD</span>
+              <span class="fact-pill">🥾 Easy</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('shivneri')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. Kalavantin Durg -->
+        <div class="fort-card" data-region="konkan" data-name="kalavantin"
+             data-modal="kalavantin">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIOoMpqUzWlBIt0_YTNKbM9BZ47VnsErhvOA&s"
+                 alt="Kalavantin Durg"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-5" style="display:none">🗻</div>
+            <span class="fort-region-tag">📍 Konkan Coast</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Kalavantin Durg</div>
+            <div class="fort-location">📌 Panvel, Raigad District, Maharashtra</div>
+            <p class="fort-desc">
+              Known as one of India's most thrilling and dangerous treks, Kalavantin Durg
+              is a knife-edge pinnacle rising from the Sahyadri. Ancient rock-cut steps
+              carved directly into the cliff face make this an unforgettable adventure for
+              experienced trekkers only.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 2,300 ft</span>
+              <span class="fact-pill">🏛️ Medieval</span>
+              <span class="fact-pill">🥾 Expert</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('kalavantin')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. Lohagad -->
+        <div class="fort-card" data-region="sahyadri" data-name="lohagad"
+             data-modal="lohagad">
+          <div class="fort-img-wrap">
+            <img class="fort-img"
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZFTIcSLEv5KApwkz3d74r_ET_9UkzeAUSwQ&s"
+                 alt="Lohagad Fort"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+            <div class="fort-img-fallback fb-6" style="display:none">🏰</div>
+            <span class="fort-region-tag">📍 Sahyadri Range</span>
+            <span class="fort-type-tag type-hill">Hill Fort</span>
+          </div>
+          <div class="fort-body">
+            <div class="fort-name">Lohagad Fort</div>
+            <div class="fort-location">📌 Pune District, Maharashtra</div>
+            <p class="fort-desc">
+              Meaning "Iron Fort," Lohagad stands at 3,389 ft and is famous for its
+              iconic scorpion-shaped Vinchukata wall that juts out over the valley. An
+              easy, well-maintained trek that is perfect for beginners and families.
+            </p>
+            <div class="fort-facts">
+              <span class="fact-pill">⛰️ 3,389 ft</span>
+              <span class="fact-pill">🏛️ 2000+ yrs</span>
+              <span class="fact-pill">🥾 Easy</span>
+            </div>
+            <div class="fort-footer">
+              <button class="view-btn" onclick="openModal('lohagad')">View Details</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /#fortsGrid -->
     </div>
+  </section>
 
-    <div class="fort-card">
-        <img src="{% static 'img/sindhudurgha.jpg' %}" alt="">
-        <h2>सिंधुदुर्ग किल्ला – महाराष्ट्र</h2>
-        <p>सिंधुदुर्ग हा समुद्रातील किल्ला आहे.</p>
+  <!-- ==================== FORT DETAIL MODAL ==================== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal" id="modalBox">
+      <div class="modal-img-wrap">
+        <img id="modalImg" src="" alt="" onerror="this.style.display='none';document.getElementById('modalImgFallback').style.display='flex'"/>
+        <div class="fort-img-fallback fb-1" id="modalImgFallback" style="display:none">🏰</div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-title" id="modalTitle"></div>
+        <div class="modal-location" id="modalLocation"></div>
+        <div class="modal-section-title">About this Fort</div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-section-title">Fort at a Glance</div>
+        <div class="modal-facts" id="modalFacts"></div>
+        <div class="modal-footer">
+          <button class="modal-btn-ghost" onclick="closeModal()">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <a href="/home/" class="back-link">← Back to Home</a>
-</div>
+
+   
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+    /* ---- Fort detail data (for modal) ---- */
+    const fortData = {
+      rajgad: {
+        name: "Rajgad Fort", location: "📌 Pune District, Maharashtra",
+        region: "Sahyadri Range", type: "Hill Fort", typeClass: "type-hill",
+        img: "../static/img/rajgad.jpg",
+        desc: "Once the capital of Chhatrapati Shivaji Maharaj's empire for 26 years, Rajgad is one of the largest and most strategically significant forts in Maharashtra. It contains four fortified bastions — Balekilla, Sanjivani Machi, Suvela Machi, and Padmavati Machi — and could shelter thousands of people. Standing at 4,514 ft, the fort offers breathtaking views of the surrounding Sahyadri ranges and valleys.",
+        facts: [
+          { val: "4,514 ft", key: "Elevation" },
+          { val: "17th C", key: "Built" },
+          { val: "26 yrs", key: "Maratha Capital" },
+          { val: "Moderate", key: "Trek Level" },
+          { val: "~6 hrs", key: "Trek Time" },
+          { val: "12", key: "Trips Available" }
+        ]
+      },
+      sinhagad: {
+        name: "Sinhagad Fort", location: "📌 Pune, Maharashtra",
+        region: "Pune Region", type: "Hill Fort", typeClass: "type-hill",
+        img: "../static/img/sinhagad.jpg",
+        desc: "Famous for the heroic battle of 1670 where Tanaji Malusare sacrificed his life to recapture the fort for Shivaji Maharaj. Upon hearing the news, Shivaji famously lamented 'Gad aala, pan sinh gela' — the fort was won, but the lion is gone. Today, Sinhagad is a beloved day-trek from Pune with a thriving local food scene at the top.",
+        facts: [
+          { val: "4,396 ft", key: "Elevation" },
+          { val: "2000+ yrs", key: "History" },
+          { val: "Easy", key: "Trek Level" },
+          { val: "~2 hrs", key: "Trek Time" },
+          { val: "30 km", key: "From Pune" },
+          { val: "28", key: "Trips Available" }
+        ]
+      },
+      raigad: {
+        name: "Raigad Fort", location: "📌 Raigad District, Maharashtra",
+        region: "Konkan Coast", type: "Hill Fort", typeClass: "type-hill",
+        img: "../static/img/raigad.jpg",
+        desc: "The imperial capital of the Maratha Empire where Shivaji Maharaj was crowned the first Chhatrapati in June 1674. Raigad is a massive plateau fort housing 300+ structures including the royal court, market street, water cisterns, and Shivaji's samadhi. A ropeway connects the base to the summit, making it accessible to all.",
+        facts: [
+          { val: "2,700 ft", key: "Elevation" },
+          { val: "1030 AD", key: "Origin" },
+          { val: "Easy", key: "Trek Level" },
+          { val: "Ropeway", key: "Access" },
+          { val: "300+", key: "Structures" },
+          { val: "19", key: "Trips Available" }
+        ]
+      },
+      harishchandragad: {
+        name: "Harishchandragad Fort", location: "📌 Ahmednagar District, Maharashtra",
+        region: "Sahyadri Range", type: "Cave Fort", typeClass: "type-cave",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9mLIupEHptyBd_WENQfbqkjXRBwqbB-EYzQ&s",
+        desc: "Home to the breathtaking Konkan Kada — a massive concave overhanging cliff with a sheer 3,000 ft drop into the Konkan coast below. The fort also contains the Kedareshwar cave with an ancient Shiva linga surrounded by waist-deep ice-cold water. One of the most dramatic and revered trekking destinations in Maharashtra.",
+        facts: [
+          { val: "4,671 ft", key: "Elevation" },
+          { val: "6th Century", key: "Origin" },
+          { val: "Hard", key: "Trek Level" },
+          { val: "~10 hrs", key: "Trek Time" },
+          { val: "3,000 ft", key: "Cliff Drop" },
+          { val: "9", key: "Trips Available" }
+        ]
+      },
+      sindhudurg: {
+        name: "Sindhudurg Fort", location: "📌 Sindhudurg District, Maharashtra",
+        region: "Konkan Coast", type: "Sea Fort", typeClass: "type-sea",
+        img: "../static/img/sindhudurgha.jpg",
+        desc: "Built on a small rocky island in the Arabian Sea by Chhatrapati Shivaji Maharaj in 1664, Sindhudurg represents the peak of Maratha naval power. Construction took 3 years with 3,000 workers and used molten lead to bind the foundation stones. The fort walls run for 3 km with 52 bastions and contains a rare temple where Shivaji is worshipped as a deity.",
+        facts: [
+          { val: "1664 AD", key: "Built" },
+          { val: "Sea Fort", key: "Type" },
+          { val: "Easy", key: "Difficulty" },
+          { val: "3 km", key: "Wall Length" },
+          { val: "48 acres", key: "Area" },
+          { val: "14", key: "Trips Available" }
+        ]
+      },
+      daulatabad: {
+        name: "Daulatabad Fort", location: "📌 Aurangabad District, Maharashtra",
+        region: "Marathwada", type: "Hill Fort", typeClass: "type-hill",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzspIWu8MRLj2m8EybkywN94onVFOpW_jaiQ&s",
+        desc: "Originally called Devagiri, Daulatabad is built atop a 200m isolated conical rock and is considered virtually impregnable. It features multiple concentric rings of defenses, a moat filled with crocodiles, a dark spiral staircase designed to confuse invaders, and the colossal Chand Minar tower. Muhammad bin Tughluq famously moved the entire Delhi population here as the new capital.",
+        facts: [
+          { val: "200 m", key: "Rock Height" },
+          { val: "1187 AD", key: "Origin" },
+          { val: "Moderate", key: "Trek Level" },
+          { val: "~3 hrs", key: "Visit Time" },
+          { val: "94 m", key: "Chand Minar" },
+          { val: "7", key: "Trips Available" }
+        ]
+      },
+      torna: {
+        name: "Torna Fort", location: "📌 Pune District, Maharashtra",
+        region: "Sahyadri Range", type: "Hill Fort", typeClass: "type-hill",
+        img: "../static/img/torna.jpg",
+        desc: "The first fort captured by the young Shivaji Maharaj at just 16 years of age in 1643, marking the very beginning of the Maratha Empire. Also known as Prachandagad meaning 'Enormous Fort,' Torna is the highest fort in Pune district. The trek passes through dense forest and offers staggering views of the Sahyadri valleys.",
+        facts: [
+          { val: "4,603 ft", key: "Elevation" },
+          { val: "1443 AD", key: "Origin" },
+          { val: "Hard", key: "Trek Level" },
+          { val: "~6 hrs", key: "Trek Time" },
+          { val: "16 yrs", key: "Shivaji's Age" },
+          { val: "15", key: "Trips Available" }
+        ]
+      },
+      pratapgad: {
+        name: "Pratapgad Fort", location: "📌 Satara District, Maharashtra",
+        region: "Konkan Coast", type: "Hill Fort", typeClass: "type-hill",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxoMlzqLAJ-kWzOU-ct3j4d5KVHu2gvkfZwQ&s",
+        desc: "Site of the legendary Battle of Pratapgad in 1659 where Shivaji Maharaj outmaneuvered and killed Afzal Khan, turning the tide against the Adilshahi Sultanate. The fort is divided into an upper fort and lower fort, and houses a temple of Goddess Bhavani — Shivaji's patron deity. A colossal statue of Shivaji greets visitors on the way up.",
+        facts: [
+          { val: "3,543 ft", key: "Elevation" },
+          { val: "1656 AD", key: "Built" },
+          { val: "Moderate", key: "Trek Level" },
+          { val: "~3 hrs", key: "Trek Time" },
+          { val: "1659", key: "Famous Battle" },
+          { val: "21", key: "Trips Available" }
+        ]
+      },
+      shivneri: {
+        name: "Shivneri Fort", location: "📌 Junnar, Pune District, Maharashtra",
+        region: "Nashik & Trimbak", type: "Hill Fort", typeClass: "type-hill",
+        img: "../static/img/shivneri.jpg",
+        desc: "The birthplace of Chhatrapati Shivaji Maharaj, born on February 19, 1630, to Jijabai and Shahaji Bhosale. Shivneri holds immense emotional importance for all Marathis. The fort contains a beautiful temple and a statue of infant Shivaji with his mother Jijabai, marking the exact birthplace. It is a pilgrimage of pride for Maharashtra.",
+        facts: [
+          { val: "3,500 ft", key: "Elevation" },
+          { val: "1630 AD", key: "Birthplace" },
+          { val: "Easy", key: "Trek Level" },
+          { val: "~2 hrs", key: "Trek Time" },
+          { val: "Junnar", key: "Nearest Town" },
+          { val: "23", key: "Trips Available" }
+        ]
+      },
+      kalavantin: {
+        name: "Kalavantin Durg", location: "📌 Panvel, Raigad District, Maharashtra",
+        region: "Konkan Coast", type: "Hill Fort", typeClass: "type-hill",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIOoMpqUzWlBIt0_YTNKbM9BZ47VnsErhvOA&s",
+        desc: "Considered one of the most dangerous and thrilling treks in India, Kalavantin Durg is a needle-like pinnacle rising sharply from the Sahyadri. Ancient steps carved directly into the near-vertical rock face are the only way up. There is no railing, no safety net — only raw rock and sky. For experienced trekkers and adrenaline seekers only.",
+        facts: [
+          { val: "2,300 ft", key: "Elevation" },
+          { val: "Medieval", key: "Origin" },
+          { val: "Expert", key: "Trek Level" },
+          { val: "~5 hrs", key: "Trek Time" },
+          { val: "Panvel", key: "Base Village" },
+          { val: "6", key: "Trips Available" }
+        ]
+      },
+      lohagad: {
+        name: "Lohagad Fort", location: "📌 Pune District, Maharashtra",
+        region: "Sahyadri Range", type: "Hill Fort", typeClass: "type-hill",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZFTIcSLEv5KApwkz3d74r_ET_9UkzeAUSwQ&s",
+        desc: "Meaning 'Iron Fort,' Lohagad is one of the most popular forts in Maharashtra due to its easy accessibility and well-maintained steps. The iconic Vinchukata — a scorpion-tail shaped wall jutting out over the valley — is one of the most photographed sights on any Maharashtra trek. Perfect for first-time trekkers and families.",
+        facts: [
+          { val: "3,389 ft", key: "Elevation" },
+          { val: "2000+ yrs", key: "History" },
+          { val: "Easy", key: "Trek Level" },
+          { val: "~3 hrs", key: "Trek Time" },
+          { val: "Vinchukata", key: "Famous For" },
+          { val: "17", key: "Trips Available" }
+        ]
+      }
+    };
+
+    /* ---- Modal open/close ---- */
+    function openModal(id) {
+      const d = fortData[id];
+      if (!d) return;
+
+      document.getElementById('modalImg').src = d.img;
+      document.getElementById('modalImg').alt = d.name;
+      document.getElementById('modalImgFallback').style.display = 'none';
+      document.getElementById('modalImg').style.display = 'block';
+
+      document.getElementById('modalTitle').textContent = d.name;
+      document.getElementById('modalLocation').textContent = d.location;
+      document.getElementById('modalDesc').textContent = d.desc;
+
+      document.getElementById('modalTags').innerHTML =
+        `<span class="fort-type-tag ${d.typeClass}" style="position:static">${d.type}</span>
+         <span class="fort-region-tag" style="position:static;background:var(--stone-light);border:1px solid var(--border);color:var(--stone)">📍 ${d.region}</span>`;
+
+      document.getElementById('modalFacts').innerHTML =
+        d.facts.map(f => `<div class="modal-fact"><div class="mf-val">${f.val}</div><div class="mf-key">${f.key}</div></div>`).join('');
+
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    /* ---- Region chip filter ---- */
+    const chips    = document.querySelectorAll('.chip');
+    const cards    = document.querySelectorAll('.fort-card');
+    const countEl  = document.getElementById('visibleCount');
+
+    function updateCount() {
+      countEl.textContent = [...cards].filter(c => c.style.display !== 'none').length;
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const region = chip.dataset.region;
+        cards.forEach(card => {
+          const match = region === 'all' || card.dataset.region === region;
+          card.style.display = match ? '' : 'none';
+        });
+        updateCount();
+        // also re-apply search
+        applySearch();
+      });
+    });
+
+    /* ---- Live search ---- */
+    function applySearch() {
+      const q = document.getElementById('fortSearch').value.toLowerCase().trim();
+      const activeRegion = document.querySelector('.chip.active').dataset.region;
+      cards.forEach(card => {
+        const nameMatch   = card.dataset.name.includes(q);
+        const regionMatch = activeRegion === 'all' || card.dataset.region === activeRegion;
+        card.style.display = (nameMatch && regionMatch) ? '' : 'none';
+      });
+      updateCount();
+    }
+
+    document.getElementById('fortSearch').addEventListener('input', applySearch);
+
+    /* ---- Initial count ---- */
+    updateCount();
+  </script>
 
 </body>
 </html>

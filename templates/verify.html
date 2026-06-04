@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Verify OTP – FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/verify_otp.css">
+</head>
+
+<body>
+<div class="page">
+  <div class="form-box">
+
+    <div class="form-header">
+      <div class="otp-icon">✉️</div>
+      <h1>Check Your Email</h1>
+      <p>We've sent a 6-digit verification code to your registered email address. Enter it below to activate your account.</p>
+    </div>
+
+    {% if error %}
+    <div class="error-banner show">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST" id="otpForm">
+      {% csrf_token %}
+
+      <div class="otp-inputs" id="otpInputs">
+        <input class="otp-cell" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" />
+        <input class="otp-cell" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" />
+        <input class="otp-cell" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" />
+        <input class="otp-cell" type="text" inputmode="numeric" maxlength="1" pattern="[0-9]" autocomplete="off" />
+      </div>
+
+      <!-- hidden input that collects the full OTP for Django -->
+      <input type="hidden" name="otp" id="otpHidden" />
+
+      <button type="submit" class="submit-btn" id="submitBtn" disabled>
+        <span class="btn-text">Verify Account</span>
+        <span class="btn-spinner"></span>
+      </button>
+    </form>
+
+    <div class="resend-row">
+      <span class="resend-label">Didn't receive the code?</span>
+      <button type="button" class="resend-btn" id="resendBtn" disabled>
+        Resend in <span id="countdown">30</span>s
+      </button>
+    </div>
+
+    <p class="footer-text">
+      Wrong email? <a href="/register/">Go back and register again</a>.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  const cells     = document.querySelectorAll('.otp-cell');
+  const hidden    = document.getElementById('otpHidden');
+  const submitBtn = document.getElementById('submitBtn');
+  const form      = document.getElementById('otpForm');
+
+  function syncHidden() {
+    const val = [...cells].map(c => c.value).join('');
+    hidden.value = val;
+    submitBtn.disabled = val.length < 4;
+    cells.forEach(c => c.classList.remove('error'));
+  }
+
+  cells.forEach((cell, i) => {
+    cell.addEventListener('input', e => {
+      const v = e.target.value.replace(/\D/g, '');
+      cell.value = v ? v[0] : '';
+      if (v && i < cells.length - 1) cells[i + 1].focus();
+      syncHidden();
+    });
+
+    cell.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !cell.value && i > 0) {
+        cells[i - 1].focus();
+        cells[i - 1].value = '';
+        syncHidden();
+      }
+    });
+
+    cell.addEventListener('paste', e => {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData)
+        .getData('text').replace(/\D/g, '').slice(0, 6);
+      [...pasted].forEach((ch, j) => {
+        if (cells[j]) cells[j].value = ch;
+      });
+      const next = Math.min(pasted.length, cells.length - 1);
+      cells[next].focus();
+      syncHidden();
+    });
+  });
+
+  form.addEventListener('submit', () => {
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+  });
+
+  /* Resend countdown */
+  const resendBtn = document.getElementById('resendBtn');
+  const countEl   = document.getElementById('countdown');
+  let timer = 30;
+
+  const tick = setInterval(() => {
+    timer--;
+    countEl.textContent = timer;
+    if (timer <= 0) {
+      clearInterval(tick);
+      resendBtn.disabled = false;
+      resendBtn.textContent = 'Resend OTP';
+    }
+  }, 1000);
+
+  resendBtn.addEventListener('click', () => {
+    if (resendBtn.disabled) return;
+    window.location.href = '/resend-otp/';
+  });
+</script>
+
+</body>
+</html>

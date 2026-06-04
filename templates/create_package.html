@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Package – FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/create_package.css">
+  <link rel="stylesheet" href="/static/css/nav.css">
+
+</head>
+<body>
+
+  {% include "navBar.html" %}
+
+  <div class="page">
+
+    <div class="page-header">
+      <h1>Create a Package</h1>
+      <p>Fill in the details below to list your trip for travellers</p>
+    </div>
+
+    <div class="form-box">
+
+      {% if error %}
+      <div class="error-banner show">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST" id="packageForm">
+        {% csrf_token %}
+
+        <!-- Section: Fort & Pickup -->
+        <div class="form-divider">Trip Details</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fort_name">Fort Name <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">🏰</span>
+              <input type="text" id="fort_name" name="fort_name"
+                     placeholder="e.g. Rajgad Fort"
+                     value="{{ request.POST.fort_name|default:'' }}"
+                     required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="pickup_place">Pickup Place <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">📍</span>
+              <input type="text" id="pickup_place" name="pickup_place"
+                     placeholder="e.g. Pune Station"
+                     value="{{ request.POST.pickup_place|default:'' }}"
+                     required />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="pickup_date">Pickup Date <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">📅</span>
+              <input type="date" id="pickup_date" name="pickup_date"
+                     value="{{ request.POST.pickup_date|default:'' }}"
+                     required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="seats">Available Seats <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">🪑</span>
+              <input type="number" id="seats" name="seats"
+                     placeholder="e.g. 12"
+                     min="1"
+                     value="{{ request.POST.seats|default:'' }}"
+                     required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Driver -->
+        <div class="form-divider">Driver Details</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="driver_name">Driver Name <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">👤</span>
+              <input type="text" id="driver_name" name="driver_name"
+                     placeholder="e.g. Suresh Patil"
+                     value="{{ request.POST.driver_name|default:'' }}"
+                     required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="contact">Contact Number <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">📞</span>
+              <input type="tel" id="contact" name="contact"
+                     placeholder="10-digit number"
+                     maxlength="10"
+                     value="{{ request.POST.contact|default:'' }}"
+                     required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: Pricing -->
+        <div class="form-divider">Pricing</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">Original Price (₹) <span class="req">*</span></label>
+            <div class="input-wrap">
+              <span class="input-icon">💰</span>
+              <input type="number" id="price" name="price"
+                     placeholder="e.g. 1500"
+                     min="0"
+                     value="{{ request.POST.price|default:'' }}"
+                     required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="offer_price">Offer Price (₹)</label>
+            <div class="input-wrap">
+              <span class="input-icon">🏷️</span>
+              <input type="number" id="offer_price" name="offer_price"
+                     placeholder="e.g. 1200 (optional)"
+                     min="0"
+                     value="{{ request.POST.offer_price|default:'' }}" />
+            </div>
+            <div class="field-hint">Leave blank if no discount</div>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span class="btn-text">🚀 Create Package</span>
+          <span class="btn-spinner"></span>
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Offer price must be less than original price
+    const priceInput = document.getElementById('price');
+    const offerInput = document.getElementById('offer_price');
+    const form       = document.getElementById('packageForm');
+    const submitBtn  = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', (e) => {
+      const p = parseFloat(priceInput.value);
+      const o = parseFloat(offerInput.value);
+      if (offerInput.value && o >= p) {
+        e.preventDefault();
+        offerInput.classList.add('error');
+        offerInput.focus();
+        return;
+      }
+      offerInput.classList.remove('error');
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+    });
+
+    offerInput.addEventListener('input', () => offerInput.classList.remove('error'));
+
+    // Prevent past dates
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('pickup_date').setAttribute('min', today);
+  </script>
+
+</body>
+</html>

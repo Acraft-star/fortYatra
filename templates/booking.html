@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Booking Page</title>
+
+<link rel="stylesheet" href="/static/css/booking.css">
+<link rel="stylesheet" href="/static/css/nav.css">
+
+</head>
+
+<body>
+
+{% include "navBar.html" %}
+
+<section class="booking-section">
+
+<div class="booking-container">
+
+<h2 class="title">Trip Booking Form</h2>
+
+<form method="POST" id="bookingForm">
+
+{% csrf_token %}
+
+<div class="input-group">
+<label>Your Name</label>
+<input type="text" name="name" required>
+</div>
+
+<div class="input-group">
+<label>Your Address</label>
+<textarea name="address" required></textarea>
+</div>
+
+<div class="input-group">
+<label>Your Contact</label>
+<input type="text" name="your_contact" required>
+</div>
+
+<div class="input-group">
+<label>your Email</label>
+<input type="email" name="email" required>
+</div>
+
+<div class="input-group">
+<label>Driver Name</label>
+<input type="text" name="driver" value="{{ pkg.driver_name }}" readonly>
+</div>
+
+<div class="input-group">
+<label>Trip Date</label>
+<input type="date" name="date" value="{{ pkg.pickup_date|date:'Y-m-d' }}" readonly>
+</div>
+
+<div class="input-group">
+<label>Contact</label>
+<input type="text" name="contact" value="{{ pkg.contact }}" readonly>
+</div>
+
+<div class="input-group">
+<label>Package</label>
+<input type="text" name="package" value="{{ pkg.fort_name }}" readonly>
+</div>
+
+<div class="input-group">
+<label>Seats</label>
+
+<div style="display:flex;gap:10px;align-items:center;">
+
+<button type="button" onclick="minusSeat()">-</button>
+
+<input type="number" id="seat" name="seat" value="1" min="1" readonly>
+
+<button type="button" onclick="plusSeat()">+</button>
+
+</div>
+
+</div>
+
+
+<div class="input-group">
+<label>Price Per Seat</label>
+<input type="text" id="price" value="{{ pkg.offer_price }}" readonly>
+</div>
+
+
+<div class="input-group">
+<label>Total Price</label>
+<input type="text" id="total_price" name="total_price" readonly>
+</div>
+
+<div class="input-group">
+<label>Payment Method</label>
+<input type="text" value="Cash Payment" readonly>
+</div>
+
+<button class="book-btn" type="submit">Confirm Booking</button>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<script>
+
+let price = {{ pkg.offer_price }};
+let maxSeat = {{ pkg.seats }};
+
+let seatInput = document.getElementById("seat");
+let totalPrice = document.getElementById("total_price");
+
+function updateTotal(){
+    totalPrice.value = seatInput.value * price;
+}
+
+function plusSeat(){
+
+    if(parseInt(seatInput.value) < maxSeat){
+        seatInput.value++;
+        updateTotal();
+    }
+
+}
+
+function minusSeat(){
+
+    if(parseInt(seatInput.value) > 1){
+        seatInput.value--;
+        updateTotal();
+    }
+
+}
+
+updateTotal();
+
+</script>
+
+ 
+ 
+
+
+</body>
+</html>

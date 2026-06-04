@@ -1,0 +1,288 @@
+
+:root {
+  --saffron:        #C8501A;
+  --saffron-hover:  #b04416;
+  --saffron-light:  #FFF4EF;
+  --dark:           #1C1410;
+  --white:          #FFFFFF;
+  --stone:          #6B6560;
+  --stone-light:    #F5F2EE;
+  --nav-height:     66px;
+  --font-display:   'Playfair Display', Georgia, serif;
+  --font-body:      'DM Sans', system-ui, sans-serif;
+  --transition:     0.22s ease;
+}
+
+/* ── Base ── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: var(--white);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+  transition: box-shadow var(--transition), padding var(--transition);
+  font-family: var(--font-body);
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+
+/* ── Container ── */
+.nav-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* ── Logo ── */
+.logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--dark);
+  text-decoration: none;
+  letter-spacing: -0.3px;
+  flex-shrink: 0;
+  transition: opacity var(--transition);
+}
+
+.logo span { color: var(--saffron); }
+.logo:hover { opacity: 0.82; }
+
+/* ── Desktop nav links ── */
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+}
+
+.nav-links a {
+  display: block;
+  padding: 7px 13px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--stone);
+  text-decoration: none;
+  border-radius: 8px;
+  position: relative;
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--saffron);
+  background: var(--saffron-light);
+}
+
+.nav-links a.active {
+  color: var(--saffron);
+  background: var(--saffron-light);
+  font-weight: 600;
+}
+
+/* animated underline on active */
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 13px;
+  right: 13px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--saffron);
+}
+
+/* ── Nav actions ── */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.welcome-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--stone);
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+/* shared button base */
+.btn-ghost,
+.btn-outline,
+.btn-primary {
+  display: inline-block;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  font-family: var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: background var(--transition), color var(--transition),
+              border-color var(--transition), transform var(--transition),
+              box-shadow var(--transition);
+  white-space: nowrap;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--stone);
+  border: 1.5px solid rgba(0,0,0,0.12);
+}
+.btn-ghost:hover {
+  background: var(--stone-light);
+  color: var(--dark);
+  border-color: rgba(0,0,0,0.18);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--saffron);
+  border: 1.5px solid rgba(200,80,26,0.35);
+}
+.btn-outline:hover {
+  background: var(--saffron-light);
+  border-color: var(--saffron);
+}
+
+.btn-primary {
+  background: var(--saffron);
+  color: var(--white);
+  border: 1.5px solid var(--saffron);
+  box-shadow: 0 2px 8px rgba(200,80,26,0.22);
+}
+.btn-primary:hover {
+  background: var(--saffron-hover);
+  border-color: var(--saffron-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(200,80,26,0.28);
+}
+.btn-primary:active { transform: translateY(0); }
+
+/* ── Hamburger ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: 1.5px solid rgba(0,0,0,0.12);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.hamburger:hover {
+  background: var(--stone-light);
+  border-color: rgba(0,0,0,0.2);
+}
+
+.hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animate to X when open */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile drawer ── */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--white);
+  border-top: 1px solid rgba(0,0,0,0.07);
+  padding: 12px 20px 24px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.mobile-menu.open {
+  max-height: 520px;
+  padding: 16px 20px 28px;
+}
+
+.mobile-links {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.mobile-links li + li { margin-top: 2px; }
+
+.mobile-links a {
+  display: block;
+  padding: 11px 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--stone);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background var(--transition), color var(--transition);
+}
+
+.mobile-links a:hover,
+.mobile-links a.active {
+  background: var(--saffron-light);
+  color: var(--saffron);
+}
+
+.mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(0,0,0,0.07);
+}
+
+.mobile-actions .welcome-text {
+  text-align: center;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.btn-ghost.full,
+.btn-outline.full,
+.btn-primary.full {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  font-size: 14.5px;
+  border-radius: 10px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .nav-links,
+  .nav-actions { display: none; }
+
+  .hamburger { display: flex; }
+
+  .mobile-menu { display: flex; }
+
+  .nav-container { gap: 0; justify-content: space-between; }
+}

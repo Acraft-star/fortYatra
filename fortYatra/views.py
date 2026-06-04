@@ -12,6 +12,12 @@ def home(request):
 def fortus(request):
     return render(request, "fort.html")
 
+def books(request):
+    return render(request, "books.html")
+
+def about(request):
+     return render(request, "about.html")
+
 def booking(request):         
     n1 = str(request.POST.get('name'))
     n2 = request.POST.get('mobile')
@@ -31,5 +37,6 @@ def best_packages(request):
     }
 
     return render(request, 'package.html', data)
+
 
 

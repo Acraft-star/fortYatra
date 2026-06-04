@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login – FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/login.css">
+</head>
+
+<body>
+<div class="page">
+  <div class="form-box">
+
+    <div class="form-header">
+      <h1>Welcome Back</h1>
+      <p>Don't have an account? <a href="/register/">Register here</a></p>
+    </div>
+
+    {% if error %}
+    <div class="error-banner show">{{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email <span class="req">*</span></label>
+        <div class="input-wrap">
+          <span class="input-icon">✉️</span>
+          <input type="email" id="email" name="email"
+                 placeholder="you@example.com"
+                 value="{{ request.POST.email|default:'' }}"
+                 autocomplete="email" required />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password <span class="req">*</span></label>
+        <div class="input-wrap">
+          <span class="input-icon">🔒</span>
+          <input type="password" id="password" name="password"
+                 placeholder="Enter your password"
+                 autocomplete="current-password" required />
+          <button type="button" class="toggle-pw" id="togglePw"
+                  aria-label="Show password">👁️</button>
+        </div>
+        <a href="/forgot-password/" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-text">Login</span>
+        <span class="btn-spinner"></span>
+      </button>
+
+    </form>
+
+    <p class="footer-text">
+      By logging in you agree to FortYatra's
+      <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+    </p>
+
+  </div>
+</div>
+
+<script>
+  const togglePw = document.getElementById('togglePw');
+  const pwInput  = document.getElementById('password');
+  if (togglePw && pwInput) {
+    togglePw.addEventListener('click', () => {
+      const show = pwInput.type === 'password';
+      pwInput.type = show ? 'text' : 'password';
+      togglePw.textContent = show ? '🙈' : '👁️';
+    });
+  }
+
+  const form = document.querySelector('form');
+  const btn  = document.getElementById('submitBtn');
+  if (form && btn) {
+    form.addEventListener('submit', () => btn.classList.add('loading'));
+  }
+</script>
+
+</body>
+</html>

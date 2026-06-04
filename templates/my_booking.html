@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Bookings – FortYatra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/mybooking.css">
+  <link rel="stylesheet" href="/static/css/nav.css">
+
+</head>
+
+<body>
+
+  {% include "navBar.html" %}
+
+  <div class="page">
+
+    <div class="page-header">
+      <h1>My Booking History</h1>
+      <p>All your FortYatra trips in one place</p>
+    </div>
+
+    {% if bookings %}
+
+    <!-- Desktop table -->
+    <div class="table-wrap">
+      <table class="booking-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Package</th>
+            <th>Trip Date</th>
+            <th>Seats</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+          <tr>
+            <td class="row-num">{{ forloop.counter }}</td>
+            <td>
+              <div class="name-cell">
+                <span class="avatar">{{ b.your_name|first|upper }}</span>
+                {{ b.your_name }}
+              </div>
+            </td>
+            <td><span class="package-badge">{{ b.package_name }}</span></td>
+            <td>
+              <div class="date-cell">
+                <span class="date-icon">📅</span>
+                {{ b.trip_date }}
+              </div>
+            </td>
+            <td><span class="seats-pill">{{ b.seats_booked }} seat{% if b.seats_booked != 1 %}s{% endif %}</span></td>
+            <td><span class="price">₹{{ b.total_price }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile cards -->
+    <div class="booking-cards">
+      {% for b in bookings %}
+      <div class="booking-card">
+        <div class="card-header">
+          <div class="name-cell">
+            <span class="avatar">{{ b.your_name|first|upper }}</span>
+            <span class="card-name">{{ b.your_name }}</span>
+          </div>
+          <span class="price">₹{{ b.total_price }}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-row">
+            <span class="card-label">Package</span>
+            <span class="package-badge">{{ b.package_name }}</span>
+          </div>
+          <div class="card-row">
+            <span class="card-label">Trip Date</span>
+            <span>📅 {{ b.trip_date }}</span>
+          </div>
+          <div class="card-row">
+            <span class="card-label">Seats</span>
+            <span class="seats-pill">{{ b.seats_booked }} seat{% if b.seats_booked != 1 %}s{% endif %}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="booking-summary">
+      Total bookings: <strong>{{ bookings|length }}</strong>
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+      <div class="empty-icon">🏕️</div>
+      <h2>No bookings yet</h2>
+      <p>You haven't booked any trips yet. Explore our packages and plan your next adventure!</p>
+      <a href="/packages/" class="explore-btn">Explore Packages</a>
+    </div>
+
+    {% endif %}
+
+  </div>
+
+</body>
+</html>
