@@ -52,7 +52,7 @@ class Booking(models.Model):
     contact = models.CharField(max_length=15)
     package_name = models.CharField(max_length=100)
     seats_booked = models.IntegerField(default=1)
-    total_price = models.IntegerField(default=0)  # default ठेवा
+    total_price = models.IntegerField(default=0)  
     payment_method = models.CharField(max_length=20, default="Cash")
 
     def __str__(self):
